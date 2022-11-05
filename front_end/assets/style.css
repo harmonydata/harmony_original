@@ -1,0 +1,430 @@
+body {
+  background-color:#EDEFEB;
+  font-family: "PT Sans", verdana, arial, sans-serif;
+}
+
+.side_bar {
+  height: 100%;
+  width: 14%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #4B9072;
+  padding-left: 1%;
+  padding-right: 1%;
+  color:rgb(7, 7, 7);
+  background-image: url("harmony_ripples.png");
+  background-size: 100% auto;
+}
+
+.main {
+  font-size: 15px; 
+  padding: 0px 10px;
+  padding-left: 16%;
+  color:#363535;
+}
+
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #4b9072a7;
+  padding-left: 1%;
+}
+
+h1 {
+  color:#EDEFEB;
+  font-family: PT Sans;
+}
+
+h3 {
+  margin-block-start:0.3em;
+  font-size: smaller;
+}
+
+h4 {
+  margin-block-end:0.3em;
+  font-size: smaller;
+}
+
+.text{
+  margin: 10px;
+  padding: 25px;
+  align-self: center;
+}
+
+.row{
+  display: flex;
+}
+
+/* Boxes */
+
+.box {
+  border-radius: 20px;
+  background-color: #F9F9F8;
+  margin: 10px;
+  padding: 25px;
+  box-shadow: 2px 2px 2px lightgrey;
+}
+
+.box_comment {
+  border-radius: 20px;
+  background-color: #d4f5c29a;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 2px 2px 2px lightgrey;
+  font-size: small;
+  text-align: center;
+  font-family: system-ui;
+}
+
+.box_emissions{
+  border-radius: 20px;
+  background-color: #e9a8538e;    
+  margin: 2px;
+  box-shadow: 2px 2px 2px lightgrey;
+  justify-content: center;
+  width: 50%;
+  text-align: center;
+}
+/* Drop down */
+#drop_map .VirtualizedSelectFocusedOption {
+  background-color:#ebb36abf;
+}
+
+#drop_continent .VirtualizedSelectFocusedOption {
+  background-color:#ebb36abf;
+}
+
+/* Radio buttons */
+.radio {
+  display:flex;
+  justify-content: left;
+  place-content:space-around;
+  width: 88%;
+}
+
+.radio input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.radio label {
+  display: table-caption;
+  background-color: #F9F9F8;
+  padding: 15px 15px;
+  font-size: 16px;
+  border: 2px solid #e9a8538e;
+  border-radius: 10px;
+  width: 200%;
+  text-align: center;
+}
+
+.radio input[type="radio"]:checked + label {
+  background-color: #e98b1044;              
+  border: 2px solid #F9F9F8;
+}
+
+.radio label:hover {
+  background-color: #e1e2df;
+  border: 2px solid #e1e2df;
+}
+
+/* Scrollbars */
+*::-webkit-scrollbar {
+  width: 12px;               
+}
+*::-webkit-scrollbar-track {
+  background: #EDEFEB;        
+}
+*::-webkit-scrollbar-thumb {
+  background-color:#ebb36abf;    
+  border-radius: 20px;      
+  border: 3px solid #EDEFEB;  
+}
+
+.circle {
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        padding: 10px;
+        background: #fff;
+        border: 3px solid #000;
+        color: #000;
+        text-align: center;
+        font-weight: bold;
+      }
+
+/*
+td::before {
+  content: url(http://localhost:8050/assets/excel_icon_small.png);
+}
+*/
+
+.donebutton {
+  background-color: #199319;
+  color: white;
+  padding: 15px 25px;
+border-radius: 15px;
+
+}
+
+.continuebutton {
+  background-color: rgba(233, 139, 16, 0.267);
+  color: black;
+  padding: 15px 25px;
+border-radius: 15px;
+}
+
+.attribution {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  padding-left: 1%;
+  font-size: small;
+}
+
+
+
+@keyframes animate_main {
+  0% {
+    padding-left: 16%;
+  }
+  100% {
+    padding-left: 0%;
+  }
+}
+
+
+@keyframes animate_side_bar {
+  0% {
+    margin-left: 0%;
+    opacity: 1;
+  }
+  100% {
+    margin-left: -16%;
+     opacity: 0;
+  }
+}
+
+
+
+
+
+@keyframes animate_main_backwards {
+  0% {
+    padding-left: 0%;
+  }
+  100% {
+    padding-left: 16%;
+  }
+}
+
+
+@keyframes animate_side_bar_backwards {
+  0% {
+    margin-left: -16%;
+    opacity: 1;
+  }
+  100% {
+    margin-left: 0%;
+     opacity: 1;
+  }
+}
+
+/*
+button {
+     text-align: center;
+  height: 100%;
+  //float: right;
+  //color: white;
+  background-color: #00784a;
+  border-color: #444444;
+  color: #ffffff;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+*/
+
+.tooltipbutton {
+     text-align: center;
+  height: 100%;
+  background-color: #00784a;
+  border-color: #ffffff;
+  color: #ffffff;
+  padding-left: 20px;
+  font-weight: bold;
+  padding-right: 20px;
+}
+
+.twbox {
+  width: 600px;
+  margin: 50px auto;
+  background: #00784a;
+  padding: 20px;
+  text-align: left;
+  color: #fff;
+  position: relative;
+  border-radius: .4em;
+}
+
+
+
+
+.sb1:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #00784a;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #00784a;
+  border-bottom: 10px solid transparent;
+  right: -19px;
+  top: 6px;
+}
+
+.sb2:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #00784a;
+  border-top: 10px solid #00784a;
+  border-bottom: 10px solid transparent;
+  left: -19px;
+  top: 6px;
+}
+
+.sb3:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #00784a;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #00784a;
+  border-bottom: 10px solid transparent;
+  left: 19px;
+  bottom: -19px;
+}
+
+.sb4:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #00784a;
+  border-top: 10px solid #00784a;
+  border-bottom: 10px solid transparent;
+  right: 19px;
+  bottom: -19px;
+}
+
+
+.sb5:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #00784a;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #00784a;
+  border-top: 10px solid transparent;
+  left: 19px;
+  top: -19px;
+}
+
+
+#twtooltip0 {right: 400px; top:300px;}
+
+#twtooltip1 {left: 0px; top:200px;}
+
+
+
+
+
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltipbutton {
+    color: #fff
+}
+
+.twtooltip {
+  position: absolute;
+  right: -280px;
+  top: 0px;
+  z-index: 1;
+  //margin-left: 200px;
+}
+
+
+.twtooltiptopright {
+  position: absolute;
+  right: 50px;
+  top: 50px;
+  z-index: 1;
+  //margin-left: 200px;
+}
+
+
+.twtooltipleft {
+  position: absolute;
+  left: 100px;
+  top: 0px;
+  z-index: 1;
+  //margin-left: 200px;
+}
+
+.twtooltipfarleft {
+  position: absolute;
+  left: -250px;
+  top: 0px;
+  z-index: 1;
+  //margin-left: 200px;
+}
+
+
+.twtooltipbelow {
+  position: absolute;
+  left: 100px;
+  top: 150px;
+  z-index: 1;
+  //margin-left: 200px;
+}
+
+.twtooltipabove {
+  position: absolute;
+  left: 100px;
+  bottom: 300px;
+  z-index: 1;
+  //margin-left: 200px;
+}
+
+.crankdown {
+    top:20px;
+}
+
+.twtooltiplower {
+  position: absolute;
+  right: -280px;
+  top: 0px;
+  z-index: 1;
+  //margin-left: 200px;
+}
+
+.twhide {
+    display: none;
+}
+
+.introtext a {
+    color: white;
+}
