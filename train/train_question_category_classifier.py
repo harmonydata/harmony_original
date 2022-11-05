@@ -1,12 +1,11 @@
 import sys
 
-
 sys.path.append("../front_end")
 
 from utils.stopwords_psych import PSYCH_STOPWORDS
 import bz2
 import pickle as pkl
-import re
+import re, os
 
 import numpy as np
 
@@ -14,10 +13,16 @@ import pandas as pd
 
 from utils.spacy_wrapper import get_spacy_model
 
-INPUT_FILE = "../data/raw_questionnaires/British Cohort Studies/Final harmonised item tool EM.xlsx"
+INPUT_FILE = "../data/Final harmonised item tool EM.xlsx"
 OUTPUT_FOLDER = "../front_end/models/"
 OUTPUT_FILE = OUTPUT_FOLDER + "/question_category_classifier.pkl.bz2"
 DIAGNOSTICS_FOLDER = "diagnostics"
+
+try:
+    os.stat(DIAGNOSTICS_FOLDER)
+except:
+    os.mkdir(DIAGNOSTICS_FOLDER)
+
 DIAGNOSTICS_FILE = DIAGNOSTICS_FOLDER + "/question_category_classifier_diagnostics.txt"
 DIAGNOSTICS_TRAINING_DATA_FILE = DIAGNOSTICS_FOLDER + "/question_category_classifier_data.xlsx"
 
@@ -79,9 +84,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import make_pipeline
 
-
 stops = PSYCH_STOPWORDS
-
 
 # Specially engineered regex to include 95%, 95%ci, etc
 vectoriser = CountVectorizer(lowercase=True, max_features=500, stop_words=stops,
