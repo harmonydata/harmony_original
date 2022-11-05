@@ -6,6 +6,8 @@ You can read more at https://harmonydata.org.
 
 There is a live demo at: https://app.harmonydata.org/
 
+![Screenshot](images/screenshot1.png)
+
 This front end is based on the Dash Food Footprint demo: https://dash.gallery/dash-food-footprint/
 
 Runs on Dash interactive Python framework developed by [Plotly](https://plot.ly/). 
