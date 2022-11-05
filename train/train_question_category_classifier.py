@@ -1,9 +1,9 @@
 import sys
 
-from utils.stopwords_psych import PSYCH_STOPWORDS
 
 sys.path.append("../front_end")
 
+from utils.stopwords_psych import PSYCH_STOPWORDS
 import bz2
 import pickle as pkl
 import re
