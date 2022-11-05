@@ -1,6 +1,6 @@
 # Harmony
 
-Harmony is a data harmonisation project that uses Natural Language Processing to helpresearchers make better use of existing data from different studies by supporting them with the harmonisation of various measures and items used in different studies.. Harmony is a collaboration project between the University of Ulster, University College London, the Universidade Federal de Santa Maria in Brazil, and Fast Data Science Ltd.
+Harmony is a data harmonisation project that uses Natural Language Processing to help researchers make better use of existing data from different studies by supporting them with the harmonisation of various measures and items used in different studies. Harmony is a collaboration project between the University of Ulster, University College London, the Universidade Federal de Santa Maria in Brazil, and Fast Data Science Ltd.
 
 You can read more at https://harmonydata.org.
 
@@ -14,6 +14,10 @@ Developed by Thomas Wood / Fast Data Science
 thomas@fastdatascience.com
 
 This tool is written in Python using the Dash front end library and the Java library Tika for reading PDFs, and runs on Linux, Mac, and Windows, and can be deployed as a web app using Docker.
+
+# How does Harmony work in layman's terms?
+
+Harmony compares questions from different instruments by converting them to a vector representation and calculating their similarity. You can read more at https://harmonydata.org/how-does-harmony-work/ 
 
 # Very quick guide to running the tool on your computer
 
@@ -49,7 +53,7 @@ Run this script:
 
 ### Architecture
 
-TODO
+![Tool architecture](images/harmony_architecture.png)
 
 ### Installing requirements
 
