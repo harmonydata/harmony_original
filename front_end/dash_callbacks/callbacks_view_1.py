@@ -26,7 +26,7 @@ from utils.serialisation_tools import serialise_dataframe
 COMMIT_ID = os.environ.get('COMMIT_ID', "not found")
 MAX_NUMBER_OF_DOCUMENTS = 20
 
-question_extractor = QuestionExtractor("models/question_classifier.pkl.bz2")
+question_extractor = QuestionExtractor()
 question_category_classifier = QuestionCategoryClassifier("models/question_category_classifier.pkl.bz2")
 # question_category_classifier = QuestionCategoryClassifierTransformerHuggingFace()
 # adult_child_classifier = AdultChildClassifier("models/adult_child_classifier.pkl.bz2")

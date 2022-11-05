@@ -1,11 +1,8 @@
-import bz2
-import pickle as pkl
 import re
 
 import numpy as np
 import pandas as pd
 from spacy.tokens import Span
-
 from utils.pt_en_dict import pt_en_map
 from utils.sequence_finder import find_longest_uninterrupted_sequence
 from utils.spacy_wrapper import get_spacy_model, re_contains_num
@@ -106,32 +103,17 @@ def is_acceptable_span(span: Span) -> bool:
     if span.end - span.start < 2:
         return False
     question = get_question_from_span(span)
-    non_whitespace_text = re.sub(r'\W', '',question)
+    non_whitespace_text = re.sub(r'\W', '', question)
     if len(non_whitespace_text) < 10:
         return False
     return True
 
 
-#
-#
-# def clean_options(text):
-#     return re.sub(r'\s+', ' ', re.sub(r'^\W+|\W+$', '', text)).upper()
-
-
 class QuestionExtractor:
 
-    def __init__(self, model_file):
-        with bz2.open(model_file, "rb") as f:
-            self.model = pkl.load(f)
-
     def get_questions(self, df):
-        # TODO: put machine learning inference here
-
         preceding_bullet_values = list(df.preceding_bullet_value)
         longest_uninterrupted_sequence = find_longest_uninterrupted_sequence(preceding_bullet_values)
-
-        predictions = self.model.predict(df.parsed)
-        df["prediction"] = list(predictions)
 
         if longest_uninterrupted_sequence is not None:
             is_question_to_include = np.zeros((len(df),), dtype=bool)
@@ -143,46 +125,7 @@ class QuestionExtractor:
             # df["is_question_to_include"] = df["prediction"] == 2
             df["is_question_to_include"] = df.span.apply(is_acceptable_span)
 
-        #
-        # # if no question-level options can be found
-        # options = list(df[df.prediction == 1]["text"].apply(clean_options))
-        # options_joined_fallback = "/".join(set(options))
-        #
-        # options_all_questions = []
-        # for idx in range(len(df)):
-        #     if df["is_question_to_include"].iloc[idx]:
-        #         o = []
-        #         for j in range(idx + 1, len(df)):
-        #             if df["is_question_to_include"].iloc[j]:
-        #                 break
-        #             if df["prediction"].iloc[j] == 1:
-        #                 o.append(clean_options(df.text.iloc[j]))
-        #
-        #         if len(o) == 0:
-        #             options_this_question = options_joined_fallback
-        #         else:
-        #             options_this_question = "/".join(set(o))
-        #
-        #         options_all_questions.append(options_this_question)
-
         df_pred = df[df["is_question_to_include"]]
         df_pred.rename(columns={"preceding_bullet_value": "question_no"}, inplace=True)
 
         return df_pred
-    #
-    # def get_language_and_df(self, pages):
-    #     text = "\n".join(pages)
-    #     language = detect(text)
-    #
-    #     doc = process_text(text, language)
-    #
-    #     df = convert_to_dataframe(doc)
-    #
-    #     df_questions = self.get_questions(df)
-    #
-    #     add_candidate_options(df_questions, doc)
-    #
-    #     df_questions["question"] = df_questions.text.apply(clean_question)
-    #     df_questions.drop(columns="text", inplace=True)
-    #
-    #     return language, df_questions
