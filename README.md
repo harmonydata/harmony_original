@@ -57,6 +57,10 @@ Run this script:
 
 ![Tool architecture](images/harmony_architecture.png)
 
+### Downloading PDF data
+
+cd into data/raw_pdf and run `download_raw_pdfs.sh`.
+
 ### Installing requirements
 
 Download and install Java if you don't have it already. Download and install Apache Tika and run it on your computer https://tika.apache.org/download.html
