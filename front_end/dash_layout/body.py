@@ -131,6 +131,7 @@ rows = [
                                     filter_action='native',
                                     export_format="xlsx",
                                     row_selectable=True,
+                                    filter_options={"case":"insensitive"},
                                     style_cell={"font-size": "10pt", "font-family": "PT Sans", "textAlign": "left",
                                                 "background-color": "white"})])
 

@@ -50,9 +50,9 @@ def add_view_2_callbacks(dash_app):
         :return:
         """
         # if this was triggered by the tab, only run the calculation if it's the first time.
-        # TODO
-        if ctx.triggered_id == "tabs" and old_similarity_store is not None:
-            raise PreventUpdate
+        # TODO- have commented this out for better UX
+        # if ctx.triggered_id == "tabs" and old_similarity_store is not None:
+        #     raise PreventUpdate
 
         callback_context.response.set_cookie('harmony cookie', '1')
 
