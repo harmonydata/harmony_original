@@ -6,3 +6,5 @@ wget https://www.ohsu.edu/sites/default/files/2019-06/SCARED-form-Parent-and-Chi
 wget https://kiwipediatricscalgary.com/files/rcads-childreported.pdf -O "RCADS Child Reported English.pdf"
 wget https://www.ismanet.org/doctoryourspirit/pdfs/Beck-Depression-Inventory-BDI.pdf -O "Beck Depression Inventory English.pdf"
 wget https://fetzer.org/sites/default/files/images/stories/pdf/selfmeasures/Self_Measures_for_Loneliness_and_Interpersonal_Problems_UCLA_LONELINESS.pdf -O "UCLA Loneliness Scale English.pdf"
+wget https://www.psychiatry.org/File%20Library/Psychiatrists/Practice/DSM/APA_DSM5_Severity-Measure-For-Depression-Child-Age-11-to-17.pdf -O  "APA DSM5 Severity Measure for Depression English.pdf"
+wget https://repositorio.ipv.pt/bitstream/10400.19/1656/3/MACHADO%20Paula%20Cristina%20Morais%20APENDICE%20IV%20BDI%20Adaptado_1COTA%C3%87AO.pdf -O "Beck Depression Inventory Portuguese.pdf"
