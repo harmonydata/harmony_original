@@ -1,1 +1,8 @@
+wget https://add.org/wp-content/uploads/2015/03/adhd-questionnaire-ASRS111.pdf -O "Adult ADHD Self-Report Scale English.pdf"
 wget http://www.chcr.brown.edu/pcoc/cesdscale.pdf -O "CES_D English.pdf"
+wget https://mvda.info/sites/default/files/field/resources/De%20Jong%20Gierveld%20Lonliness%20Scale.pdf -O "De Jong Gierveld Loneliness Scale English.pdf"
+wget https://adaa.org/sites/default/files/GAD-7_Anxiety-updated_0.pdf -O "GAD-7 English.pdf"
+wget https://www.ohsu.edu/sites/default/files/2019-06/SCARED-form-Parent-and-Child-version.pdf -O "SCARED English.pdf"
+wget https://kiwipediatricscalgary.com/files/rcads-childreported.pdf -O "RCADS Child Reported English.pdf"
+wget https://www.ismanet.org/doctoryourspirit/pdfs/Beck-Depression-Inventory-BDI.pdf -O "Beck Depression Inventory English.pdf"
+wget https://fetzer.org/sites/default/files/images/stories/pdf/selfmeasures/Self_Measures_for_Loneliness_and_Interpersonal_Problems_UCLA_LONELINESS.pdf -O "UCLA Loneliness Scale English.pdf"
