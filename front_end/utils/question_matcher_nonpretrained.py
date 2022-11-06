@@ -6,8 +6,6 @@ from nltk.corpus import stopwords
 from utils.pt_en_dict import pt_en_map
 from utils.spacy_wrapper import get_spacy_model
 
-# stops = set(stopwords.words('english')).union(set(stopwords.words('portuguese')))
-# stops = {"she", "he"}
 stops = {}
 
 from sklearn.feature_extraction.text import TfidfVectorizer

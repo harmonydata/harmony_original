@@ -94,7 +94,7 @@ def convert_to_dataframe(doc, is_training=False):
 
     df["preceding_bullet_value"] = df["span"].apply(lambda span: span._.preceding_bullet_value)
 
-    df["parsed"] = df["span"].apply(get_parse_features)
+    # df["parsed"] = df["span"].apply(get_parse_features)
 
     return df
 
