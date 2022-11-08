@@ -98,8 +98,7 @@ def add_view_1_callbacks(dash_app):
             Output("please_wait_message", "style"),
         ]
         ,
-        inputs=[Input("url", "href"),  # on startup
-                Input("file_table", "data"),  # Commented out temporarily to remove circular dependency warning
+        inputs=[Input("file_table", "data"),  # Commented out temporarily to remove circular dependency warning
                 Input("dataset", "value"),
                 Input('upload-data', 'contents'),
                 State('upload-data', 'filename'),
@@ -108,7 +107,7 @@ def add_view_1_callbacks(dash_app):
                 ],
         prevent_initial_call=True
     )
-    def user_uploaded_files(href, file_table,
+    def user_uploaded_files(file_table,
                             selected_datasets, all_file_contents, file_names, file_date, parsed_documents):
 
         print("file_names", file_names)
@@ -243,7 +242,6 @@ def add_view_1_callbacks(dash_app):
             old_data.append({c['id']: '' for c in old_cols})
             return [old_cols, old_data]
 
-
         if language == "pt":
             from application import pt_lang
             _ = pt_lang.gettext
@@ -251,9 +249,6 @@ def add_view_1_callbacks(dash_app):
             _ = lambda x: x
 
         dfs = []
-
-
-
 
         for file_name, pages in document_content.items():
             if file_name.endswith("pdf"):

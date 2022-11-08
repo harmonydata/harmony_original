@@ -119,7 +119,7 @@ rows = [
                                 dcc.Dropdown(id="filter_questions", options=[], value=None, multi=False,
                                              style={'float': 'left', 'width': '50%', "margin-left": "20px"})],
                                 style={"display": "flex", "width": "100%"}),
-                            html.Button("+", id="add_row"),
+                            html.Button(id="add_row"),
 
                             dcc.Loading([
                                 dash_table.DataTable(

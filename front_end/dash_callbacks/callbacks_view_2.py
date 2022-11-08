@@ -33,12 +33,12 @@ def add_view_2_callbacks(dash_app):
             State("excerpt_table", "columns"),
             State("excerpt_table", "data"),
             State("excerpt_table", "derived_virtual_indices"),
-            State("excerpt_table", "derived_virtual_selected_rows"),
+            State("excerpt_table", "selected_rows"),
             State("similaritystore", "data"),
         ],
     )
     def find_similarity(_, tab, columns, data, filtered_rows, selected_rows, old_similarity_store):
-        print ("SEL", selected_rows)
+        print("SEL", selected_rows)
         """
         This function does the heavy lifting.
 
@@ -58,9 +58,9 @@ def add_view_2_callbacks(dash_app):
 
         # If user has selected some rows with the checkbox, use only them.
         if selected_rows is not None and len(selected_rows) > 0:
-            data=[data[r] for r in selected_rows]
-        elif filtered_rows is not None and len(filtered_rows) > 0:
-            data = [data[r] for r in filtered_rows]
+            data = [data[r] for r in selected_rows]
+        # elif filtered_rows is not None and len(filtered_rows) > 0:
+        #     data = [data[r] for r in filtered_rows]
 
         df_questions = deserialise_questions_dataframe(columns, data)
 
@@ -170,12 +170,14 @@ def add_view_2_callbacks(dash_app):
             State("excerpt_table", "columns"),
             State("excerpt_table", "data"),
             State("excerpt_table", "derived_virtual_indices"),
-            State("excerpt_table", "derived_virtual_selected_rows"),
+            State("excerpt_table", "selected_rows"),
             Input("manual_edges", "data"),
             Input("select_language", "value")
         ],
+        prevent_initial_call=True
     )
-    def display_similarity_graph(pickled, sensitivity, categories_to_display, columns, data,filtered_rows, selected_rows, manual_edges_serialisable, language):
+    def display_similarity_graph(pickled, sensitivity, categories_to_display, columns, data, filtered_rows,
+                                 selected_rows, manual_edges_serialisable, language):
         if language == "pt":
             from application import pt_lang
             _ = pt_lang.gettext
@@ -184,9 +186,9 @@ def add_view_2_callbacks(dash_app):
 
         # If user has selected some rows with the checkbox, use only them.
         if selected_rows is not None and len(selected_rows) > 0:
-            data=[data[r] for r in selected_rows]
-        elif filtered_rows is not None and len(filtered_rows) > 0:
-            data = [data[r] for r in filtered_rows]
+            data = [data[r] for r in selected_rows]
+        # elif filtered_rows is not None and len(filtered_rows) > 0:
+        #     data = [data[r] for r in filtered_rows]
 
         matches = pkl.loads(codecs.decode(pickled.encode(), "base64"))
 

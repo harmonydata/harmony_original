@@ -49,7 +49,7 @@ def convert_jsonified_excel_to_questions_dataframe(excel_in_json_format: str) ->
     # Check if header row present, in which case remove it
     rows_to_delete = []
     for i in range(len(df_questions)):
-        if df_questions.question.iloc[i] is None or df_questions.question.iloc[i].lower() in ["question", "text",
+        if df_questions.question.iloc[i] is None or type(df_questions.question.iloc[i]) is not str or df_questions.question.iloc[i].lower() in ["question", "text",
                                                                                               "pergunta", "texto"]:
             rows_to_delete.append(i)
 

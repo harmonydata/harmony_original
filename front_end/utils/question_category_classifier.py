@@ -1,6 +1,9 @@
 import bz2
 import pickle as pkl
 import re
+import traceback
+import sys
+
 
 from utils.language_utils import get_clean_language_code
 from utils.pt_en_dict import pt_en_map
@@ -35,11 +38,16 @@ class QuestionCategoryClassifier:
 
         parsed_questions = df.apply(lambda r: parse_questions(get_spacy_model(get_clean_language_code(r.language)), r.question), axis=1)
 
-        categories = self.model.predict(parsed_questions)
-        # Override if empty strings
-        for i in range(len(df)):
-            lc = df.question.iloc[i].strip().lower()
-            if lc == "":
-                categories[i] = ""
+        try:
+            categories = self.model.predict(parsed_questions)
+            # Override if empty strings
+            for i in range(len(df)):
+                lc = df.question.iloc[i].strip().lower()
+                if lc == "":
+                    categories[i] = ""
 
-        df["question_category"] = categories
+            df["question_category"] = categories
+        except:
+            print ("Exception categorising questions")
+            traceback.print_exception(*sys.exc_info())
+            df["question_category"] = "N/A"
