@@ -221,6 +221,7 @@ def add_view_1_callbacks(dash_app):
         output=[  # Output("paragraph_id", "children"),
             Output("excerpt_table", "columns"),
             Output("excerpt_table", "data"),
+            Output('excerpt_table', 'selected_rows')
         ]
         ,
         inputs=[Input("document_content", "data"),
@@ -240,7 +241,7 @@ def add_view_1_callbacks(dash_app):
         trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
         if trigger_id == "add_row":
             old_data.append({c['id']: '' for c in old_cols})
-            return [old_cols, old_data]
+            return [old_cols, old_data, list(range(len(old_data)))]
 
         if language == "pt":
             from application import pt_lang
@@ -300,7 +301,7 @@ def add_view_1_callbacks(dash_app):
 
         serialised_columns, serialised_data = serialise_dataframe(df_questions, True, _)
 
-        return [serialised_columns, serialised_data]
+        return [serialised_columns, serialised_data, list(range(len(serialised_data)))]
 
     @dash_app.callback(
         output=[  # Output("paragraph_id", "children"),
