@@ -61,7 +61,9 @@ You can export the result to Excel or as an image, and share with colleagues.
 
 Read more at [harmonydata.org](https://harmonydata.org).
 
-You can also read our [privacy policy](https://harmonydata.org/privacy-policy/)."""),
+You can also read our [privacy policy](https://harmonydata.org/privacy-policy/).
+
+If you have feedback about the tool, feel free to [contact us](https://harmonydata.org/contact/)."""),
             _("Choose existing questionnaires"),
             _("or"),
             _("Upload your documents "),
