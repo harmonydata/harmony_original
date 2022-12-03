@@ -34,13 +34,15 @@ class QuestionMatcherNonpretrained:
 
         return " ".join(preprocessed_tokens)
 
-    def match_questions(self, dfs):
+    def match_questions(self, dfs, is_disable_dictionary_lookup = False):
 
         matches = {}
 
         all_documents = []
         for df in dfs:
             language = df.attrs['language']
+            if is_disable_dictionary_lookup:
+                language = "en"
             nlp = get_spacy_model(language)
 
             df["parsed"] = df.question.apply(lambda q: self.parse_questions(nlp, q))
