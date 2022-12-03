@@ -1,8 +1,6 @@
-from utils.spacy_wrapper import get_spacy_model
+import spacy
 
-# stops = set(stopwords.words('english')).union(set(stopwords.words('portuguese')))
-# stops = {"she", "he"}
-stops = {}
+nlp = spacy.load("en_core_web_trf")
 
 
 def parse_questions(nlp, text):
@@ -11,7 +9,7 @@ def parse_questions(nlp, text):
     return doc
 
 
-class QuestionMatcherSpacy:
+class QuestionMatcherSpacyTrfEnglishOnly:
 
     def match_questions(self, dfs):
 
@@ -19,9 +17,7 @@ class QuestionMatcherSpacy:
 
         transforms = []
         for df in dfs:
-            language = df.attrs['language']
-            nlp = get_spacy_model(language)
-
+            # ignore language
             df["parsed"] = df.question.apply(lambda q: parse_questions(nlp, q))
 
             transforms.append(df["parsed"])
