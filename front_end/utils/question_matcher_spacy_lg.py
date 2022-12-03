@@ -1,6 +1,6 @@
 import spacy
 
-nlp = spacy.load("en_core_web_trf")
+nlp = spacy.load("en_core_web_lg")
 
 
 def parse_questions(nlp, text):
@@ -9,7 +9,7 @@ def parse_questions(nlp, text):
     return doc
 
 
-class QuestionMatcherSpacyTrfEnglishOnly:
+class QuestionMatcherSpacyLgEnglishOnly:
 
     def match_questions(self, dfs):
 
