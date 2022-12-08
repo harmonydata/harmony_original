@@ -16,7 +16,7 @@ from utils.question_matcher_transformer_huggingface_negation_efficient import Qu
 from utils.serialisation_tools import deserialise_manual_edges, serialise_manual_edges, deserialise_questions_dataframe, \
     serialise_dataframe
 
-question_matcher = QuestionMatcherTransformerHuggingFaceNegationEfficient()
+question_matcher = QuestionMatcherTransformerHuggingFaceNegationEfficient('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
 
 
 def add_view_2_callbacks(dash_app):

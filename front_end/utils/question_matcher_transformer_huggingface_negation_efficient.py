@@ -8,25 +8,24 @@ stops = {}
 import numpy as np
 from sentence_transformers import SentenceTransformer, util
 
-model = SentenceTransformer('sentence-transformers/distiluse-base-multilingual-cased-v2')
-
-
-def parse_questions(text):
-    embedding = model.encode(text)
-
-    return embedding
-
-
-def convert_texts_to_vector(texts: list):
-    embeddings = model.encode(list(texts))
-    return [embeddings[i] for i in range(embeddings.shape[0])]
-
 
 def normalise_question(text):
     return re.sub(r'[^a-z0-9]', '', text.lower())
 
 
 class QuestionMatcherTransformerHuggingFaceNegationEfficient:
+
+    def __init__(self, sentence_transformer_path):
+        self.model = SentenceTransformer(sentence_transformer_path)
+
+    def parse_questions(self, text):
+        embedding = self.model.encode(text)
+
+        return embedding
+
+    def convert_texts_to_vector(self, texts: list):
+        embeddings = self.model.encode(list(texts))
+        return [embeddings[i] for i in range(embeddings.shape[0])]
 
     def match_questions(self, dfs, is_use_cosine_similarity=False, is_disable_negation=False):
 
@@ -38,9 +37,9 @@ class QuestionMatcherTransformerHuggingFaceNegationEfficient:
         for df in dfs:
             language = df.attrs['language']
 
-            df["parsed"] = convert_texts_to_vector(df.question)
+            df["parsed"] = self.convert_texts_to_vector(df.question)
             negated = df.question.apply(lambda q: negate(q, language))
-            df["parsed_neg"] = convert_texts_to_vector(negated)
+            df["parsed_neg"] = self.convert_texts_to_vector(negated)
             df["normalised"] = df.question.apply(normalise_question)
 
             transforms.append(df["parsed"])
