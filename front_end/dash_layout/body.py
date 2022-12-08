@@ -328,10 +328,10 @@ def get_body(dash_app):
                 options=[{"label": "🇬🇧🇺🇸 English", "value": "en"}, {"label": "🇧🇷🇵🇹 Português", "value": "pt"}],
                 id="select_language", value="en", multi=False),
             dcc.Markdown(style={'color': 'white'}, className="introtext", id="introtext"),
-            html.Img(id="harmony_graphic",
+            #html.Img(id="harmony_graphic",
                      # style={'position': 'relative', 'width': '180%', 'left': '-83px', 'top': '-20px'}
-                     style={"width": "100%"}
-                     ),
+             #        style={"width": "100%"}
+              #       ),
         ], className='side_bar', id="side_bar"),
 
         html.Div(

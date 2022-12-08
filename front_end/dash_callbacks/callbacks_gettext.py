@@ -34,7 +34,7 @@ def add_gettext_callbacks(dash_app):
                                Output("please_upload_message", "children"),
                                Output("please_wait_message", "children"),
                                Output("filter_by_cat", "children"),
-                               Output("harmony_graphic", "src"),
+                               # Output("harmony_graphic", "src"),
                                Output("dropdown-edge", "options"),
                                Output("add_row", "children")
                                ],
@@ -125,7 +125,7 @@ You can read more about how Harmony works [in this blog post](https://harmonydat
             _("Please upload some questionnaires under 'Upload your data'."),
             _("Please wait. The graph is being calculated."),
             _("Filter questions by category:"),
-            dash_app.get_asset_url(_('harmony_flowchart_en.png')),
+            # dash_app.get_asset_url(_('harmony_flowchart_en.png')),
             [{"value": 1, "label": _("positive")}, {"value": -1, "label": _("negative")},
              {"value": 0, "label": _("no connection")}],
             _("Add row")
