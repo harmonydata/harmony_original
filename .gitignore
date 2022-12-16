@@ -127,3 +127,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+data/BHRCS_SDQ_CBCL_harmonization.xlsx
