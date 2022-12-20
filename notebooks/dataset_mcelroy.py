@@ -23,6 +23,7 @@ for sheet_name in ("Childhood","Adulthood"):
         for column in df.columns:
             cell_content = df[column].iloc[idx]
             if type(cell_content) is str:
+                cell_content = re.sub("tiredness/exhaustion", "tiredness or exhaustion", cell_content)
                 for text in cell_content.split("/"):
                     text = re.sub(r'[^A-Za-z -,]', '', text.strip()).strip()
                     category = column.strip()
