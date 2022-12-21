@@ -318,7 +318,10 @@ rows.append(html.Div([], id="log_tika", style={"opacity": "0.1"}))
 def get_body(dash_app):
     return html.Div([
 
+        html.Button( id="btn_show_side_bar",
+                    style={"position": "absolute", "left": "0px", "top": "0px"}),
         html.Div([
+            html.Button( id="btn_hide_side_bar", className="control_label"),
             html.Img(src=dash_app.get_asset_url('logo-no-background.png'),
                      # style={'position': 'relative', 'width': '180%', 'left': '-83px', 'top': '-20px'}
                      style={"width": "100%", "margin-top": "20px"}
@@ -328,11 +331,15 @@ def get_body(dash_app):
                 options=[{"label": "🇬🇧🇺🇸 English", "value": "en"}, {"label": "🇧🇷🇵🇹 Português", "value": "pt"}],
                 id="select_language", value="en", multi=False),
             dcc.Markdown(style={'color': 'white'}, className="introtext", id="introtext"),
+
+
             #html.Img(id="harmony_graphic",
                      # style={'position': 'relative', 'width': '180%', 'left': '-83px', 'top': '-20px'}
              #        style={"width": "100%"}
               #       ),
         ], className='side_bar', id="side_bar"),
+
+
 
         html.Div(
             html.Div(rows, className='main', id="main"),

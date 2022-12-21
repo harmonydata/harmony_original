@@ -1,0 +1,256 @@
+[
+    [
+        "introtext",
+        "children",
+        "Harmony is a tool designed for retrospective harmonisation of questionnaire data.\n\nIf you want to compare data from different surveys, such as GAD-7 and PHQ-9, Harmony can identify which questions match.\n\nDrag and drop your spreadsheets and PDFs of mental health questionnaires into the tool.\n\nThe AI will harmonise your data.\n\nYou can export the result to Excel or as an image, and share with colleagues.\n\nIf you have a query about Harmony we suggest you take a look at our [FAQs page](https://harmonydata.org/frequently-asked-questions/), or [contact us via the website](https://harmonydata.org/contact/).\n\n## How does Harmony work?\n\nHarmony uses a transformer neural network to convert texts into a vector called a [document embedding](https://harmonydata.org/how-does-harmony-work/), and then calculates the cosine similarity between questionnaire items. Harmony has been [evaluated against existing harmonisation tools](https://harmonydata.org/measuring-the-performance-of-nlp-algorithms/).\n\nHarmony does not save any data you upload. Please see our [privacy policy](https://harmonydata.org/privacy-policy/).",
+        "O Harmony é uma ferramenta desenvolvida para a harmonização de questionários e perguntas depesquisa.\n\nCaso você deseje comparar dados de diferentes questionários, como o GAD-7 e o PHQ-9, o Harmony é capaz de identificar quais perguntas correspondem entre si.\n\nArraste e solte suas planilhas e PDFs de questionários de saúde mental na ferramenta.\n\nA IA irá aproximar seus dados.\n\nVocê pode exportar o resultado em formato Excel ou como uma imagem e compartilhar com colegas.\n\nSe você tiver alguma dúvida sobre o Harmony, sugerimos que dê uma olhada em nossa [página de perguntas frequentes](https://harmonydata.org/frequently-asked-questions/) ou [escreva-nos uma mensagem](https://harmonydata.org/contact/).\n\n## Como funciona o Harmony?\n\nO Harmony usa uma rede neural transformadora para converter textos em um vetor chamado [document embedding](https://harmonydata.org/how-does-harmony-work/) e, em seguida, calcula a semelhança de cosseno entre os itens do questionário. O Harmony foi [avaliado em relação às ferramentas de harmonização existentes](https://harmonydata.org/measuring-the-performance-of-nlp-algorithms/).\n\nO Harmony não salva nenhum dado que você carrega. Você também pode ler nossa [política de privacidade](https://harmonydata.org/privacy-policy/)."
+    ],
+    [
+        "choose_existing_questionnaires",
+        "children",
+        "Choose existing questionnaires",
+        "Escolha entre os questionários disponíveis"
+    ],
+    [
+        "or",
+        "children",
+        "or",
+        "ou"
+    ],
+    [
+        "upload_your_documents",
+        "children",
+        "Upload your documents ",
+        "Carregue seus documentos "
+    ],
+    [
+        "btn_show_tip0",
+        "children",
+        "How should I format the documents?",
+        "Como os documentos devem estar formatados?"
+    ],
+    [
+        "drag_drop",
+        "children",
+        "Drag and Drop PDFs or Excels",
+        "Arraste e solte arquivos em formato PDF ou Excel (.xlsx)"
+    ],
+    [
+        "or2",
+        "children",
+        "or",
+        "ou"
+    ],
+    [
+        "select_files",
+        "children",
+        "Select Files from your Computer",
+        "Selecione arquivos do seu computador"
+    ],
+    [
+        "tip0",
+        "children",
+        "Harmony can read questionnaires in PDF or Excel format, although Excels may give better results.\n\nIf you're using Excel, each file should be an Excel spreadsheet with a question on each row. You can put multiple questionnaires in a single Excel in different sheets.\n\nIf you're uploading a PDF file, for best results the questions should be formatted with question numbers, question text and a list of options on each line, e.g.\n\n```\n1. Feeling nervous: Rarely, Sometimes, Often, Always\n```\n\nThis version of the Harmony tool supports English and Portuguese documents.",
+        "O Harmony consegue ler questionários em formato PDF ou Excel (.xlsx), embora arquivos Excel possam trazer melhores resultados.\n\nSe você estiver usando o Excel, cada arquivo deve ser uma planilha de Excel com uma pergunta em cada linha. É possível incluir vários questionários em um único arquivo distribuindo-os em abas separadas.\n\nSe você estiver enviando um arquivo PDF, para obter melhores resultados, a formatação das perguntas deverá incluir o número da pergunta, o texto da pergunta e uma lista de opções na mesma linha, como no exemplo abaixo: \n\n```\n1. Sentir-se nervoso(a), ansioso(a) ou muito tenso(a): Raramente, Às vezes, Frequentemente, Sempre\n```\n\nEsta versão da ferramenta Harmony suporta documentos em inglês e português."
+    ],
+    [
+        "twtooltipbtnexit0",
+        "children",
+        "Hide tip",
+        "Ocultar dica"
+    ],
+    [
+        "files_selected",
+        "children",
+        "Files selected",
+        "Arquivos selecionados"
+    ],
+    [
+        "these_are_questions",
+        "children",
+        "These are the questions that Harmony found in your documents.",
+        "Estas são as perguntas que o Harmony encontrou em seus documentos."
+    ],
+    [
+        "click_to_filter",
+        "children",
+        "Click to filter by a particular file:",
+        "Clique para filtrar por um arquivo específico:"
+    ],
+    [
+        "upload_your_data",
+        "label",
+        "➊ Upload your items",
+        "➊ Carregue seus itens"
+    ],
+    [
+        "check_the_matches",
+        "label",
+        "➋ Check the matches",
+        "➋ Verificar correspondências"
+    ],
+    [
+        "export_excel",
+        "label",
+        "➌ Export the matches to Excel",
+        "➌ Exportar correspondências para Excel"
+    ],
+    [
+        "btn_calculate_match",
+        "children",
+        "Click to re-calculate all the matching questions",
+        "Clique para recalcular todas as perguntas correspondentes"
+    ],
+    [
+        "btn_save_graph",
+        "children",
+        "Click to save this graph to your computer",
+        "Clique para salvar este gráfico em seu computador"
+    ],
+    [
+        "btn_show_tip1",
+        "children",
+        "Show/hide tip",
+        "Mostrar/ocultar dica"
+    ],
+    [
+        "adjust_sensitivity",
+        "children",
+        "Adjust the sensitivity of the matches. If this is high, only questions with exactly the same text are considered identical. If you don't see any matches, try reducing the sensitivity.",
+        "Ajuste a sensibilidade das correspondências. Se estiver alta, apenas as perguntas com exatamente o mesmo texto serão consideradas idênticas. Caso você não encontre nenhuma correspondência, experimente diminuir a sensibilidade."
+    ],
+    [
+        "my-slider",
+        "marks",
+        {
+            "0": "0% (show everything)",
+            "0.2": "20% (approximate matches)",
+            "0.5": "50%",
+            "0.8": "80% (close matches)",
+            "1": "100% (exact matches)"
+        },
+        {
+            "0": "0% (mostrar tudo)",
+            "0.2": "20% (correspondências aproximadas)",
+            "0.5": "50%",
+            "0.8": "80% (correspondências próximas)",
+            "1": "100% (correspondências exatas)"
+        }
+    ],
+    [
+        "click_to_add_remove",
+        "children",
+        "You can click on a question or a connection in the graph to add or remove individual links:",
+        "Você pode clicar em uma pergunta ou conexão no gráfico para adicionar ou remover ligações específicas:"
+    ],
+    [
+        "btn_update_edge",
+        "children",
+        "Update value of connection",
+        "Atualizar valor da conexão"
+    ],
+    [
+        "btn_clear_edge",
+        "children",
+        "Clear all manual connections",
+        "Limpar todas as conexões manuais"
+    ],
+    [
+        "tooltip1_markdown",
+        "children",
+        "## Using the graph\n\nYou can use the scroll wheel on your mouse to zoom in or out. You can also click and drag the graph left or right to pan across it.\n\nThe percent scores show how close the AI thought two texts matched. Exact matches score 100%. Negative values mean that the texts match but have opposite meanings, e.g. \"I feel nervous\" vs \"I feel relaxed\".\n\n## How does Harmony work?\n\n*The technical details*\n\nThe AI converts the text of each question into a vector in 1600 dimensions using a neural network called GPT-2. This technique is called a *document embedding*.\n\nThe distance between any two questions is measured according to the cosine similarity metric between the two vectors. Two questions which are similar in meaning, even if worded differently or in different languages, will have a high degree of similarity between their vector representations. Questions which are very different tend to be far apart in the vector space.\n\nYou can read more about how Harmony works [in this blog post](https://harmonydata.org/how-does-harmony-work/).\n",
+        "## Uso do gráfico\n\nVocê pode usar o botão de rolagem (scroll) do seu mouse para aumentar ou diminuir o zoom. Você também pode explorar e mover o gráfico clicando e arrastando-o para a esquerda ou direita.\n\nOs resultados percentuais indicam o grau de correspondência entre os dois textos identificado pela inteligência artificial (IA). Correspondências exatas têm um percentual de 100%. Valores negativos significam que os textos se correspondem, mas têm sentidos opostos (por exemplo: “Eu me sinto tenso(a)” x “Eu me sinto relaxado(a)”.\n\n## Como o Harmony funciona?\n\n*Os detalhes técnicos*\n\nA IA converte o texto de cada pergunta em um vetor de 1600 dimensões usando uma rede neural chamada GPT-2. Essa técnica é chamada de *incorporação de documento* (ou “document embedding”, em inglês).\n\nA distância entre quaisquer duas perguntas é medida de acordo com a métrica de similaridade de cosseno entre os dois vetores. Duas perguntas com significados semelhantes, mesmo se formuladas de forma diferente ou em idiomas diferentes, terão um alto grau de similaridade entre suas representações vetoriais. Perguntas muito diferentes, por outro lado, tendem a estar distanciadas no espaço vetorial.\n\nVocê pode ler mais sobre como o Harmony funciona [nesta postagem do blog](https://harmonydata.org/how-does-harmony-work/).\n"
+    ],
+    [
+        "twtooltipbtnexit",
+        "children",
+        "Hide tip",
+        "Ocultar dica"
+    ],
+    [
+        "built_by",
+        "children",
+        "AI tool built by ",
+        "Ferramenta de IA desenvolvida por "
+    ],
+    [
+        "at",
+        "children",
+        " at ",
+        " de "
+    ],
+    [
+        "github",
+        "children",
+        "View source code on Github",
+        "Ver código-fonte no Github"
+    ],
+    [
+        "please_upload_message",
+        "children",
+        "Please upload some questionnaires under 'Upload your data'.",
+        "Por favor, acesse “Carregue seus dados” para enviar alguns questionários."
+    ],
+    [
+        "please_wait_message",
+        "children",
+        "Please wait. The graph is being calculated.",
+        "Por favor, espere. O Harmony está calculando o gráfico."
+    ],
+    [
+        "filter_by_cat",
+        "children",
+        "Filter questions by category:",
+        "Filtrar perguntas por categoria:"
+    ],
+    [
+        "dropdown-edge",
+        "options",
+        [
+            {
+                "value": 1,
+                "label": "positive"
+            },
+            {
+                "value": -1,
+                "label": "negative"
+            },
+            {
+                "value": 0,
+                "label": "no connection"
+            }
+        ],
+        [
+            {
+                "value": 1,
+                "label": "positivo"
+            },
+            {
+                "value": -1,
+                "label": "negativo"
+            },
+            {
+                "value": 0,
+                "label": "sem correspondência"
+            }
+        ]
+    ],
+    [
+        "add_row",
+        "children",
+        "Add row",
+        "Nova linha"
+    ],
+        [
+        "btn_show_side_bar",
+        "children",
+        "Show side bar",
+        "Mostrar barra lateral"
+    ],
+        [
+        "btn_hide_side_bar",
+        "children",
+        "Hide side bar",
+        "Ocultar barra lateral"
+    ]
+]

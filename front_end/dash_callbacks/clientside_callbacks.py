@@ -6,19 +6,22 @@ def add_clientside_callbacks(dash_app):
     dash_app.clientside_callback(
         """
         function(result) {
-            if (result == "tab_upload_your_data") {
+            const triggered = dash_clientside.callback_context.triggered.map(t => t.prop_id);
+            if (triggered=="btn_show_side_bar.n_clicks") {
                 document.getElementsByClassName("main")[0].style.animation = "animate_main_backwards 1s linear 1 forwards";
                 document.getElementsByClassName("side_bar")[0].style.animation = "animate_side_bar_backwards 1s linear 1 forwards";
+                return {"position": "absolute", "left": "0px", "top": "0px", "display":"none"};
             } else {
             document.getElementsByClassName("main")[0].style.animation = "animate_main 1s linear 1 forwards";
                 document.getElementsByClassName("side_bar")[0].style.animation = "animate_side_bar 1s linear 1 forwards";
-
+                return {"position": "absolute", "left": "0px", "top": "0px"};
             }
             
         }
         """,
-        Output("dummy2", "data"),
-        Input("tabs", "value"),
+        Output("btn_show_side_bar", "style"),
+        [Input("btn_show_side_bar", "n_clicks"),
+         Input("btn_hide_side_bar", "n_clicks")],
         prevent_initial_call=True,
     )
 

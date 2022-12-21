@@ -5,7 +5,7 @@ body {
 
 .side_bar {
   height: 100%;
-  width: 14%;
+  width: 300px;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,12 +15,13 @@ body {
   color:rgb(7, 7, 7);
   background-image: url("harmony_ripples.png");
   background-size: 100% auto;
+  overflow-y:scroll;
 }
 
 .main {
   font-size: 15px; 
   padding: 0px 10px;
-  padding-left: 16%;
+  padding-left: 320px;
   color:#363535;
 }
 
@@ -189,7 +190,7 @@ border-radius: 15px;
 
 @keyframes animate_main {
   0% {
-    padding-left: 16%;
+    padding-left: 320px;
   }
   100% {
     padding-left: 0%;
@@ -203,7 +204,7 @@ border-radius: 15px;
     opacity: 1;
   }
   100% {
-    margin-left: -16%;
+    margin-left: -320px;
      opacity: 0;
   }
 }
@@ -217,14 +218,14 @@ border-radius: 15px;
     padding-left: 0%;
   }
   100% {
-    padding-left: 16%;
+    padding-left: 320px;
   }
 }
 
 
 @keyframes animate_side_bar_backwards {
   0% {
-    margin-left: -16%;
+    margin-left: -320px;
     opacity: 1;
   }
   100% {
