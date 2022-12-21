@@ -242,6 +242,11 @@ rows = [
                         # html.Button("Generate table", id="btn_create_table"),
                         # html.P(
                         #     "Here are your results."),
+                        dcc.Dropdown(id="dropdown_table_orientation",
+                                      options=[{"value":"h","label":"horizontal"},{"value":"v","label":"vertical"}],
+                                     value="h",
+                                     style={"max-width":"200px"}
+                                      ),
                         dash_table.DataTable(
                             id="results_table",
                             editable=True,

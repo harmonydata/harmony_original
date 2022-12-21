@@ -1,4 +1,9 @@
+import gettext
 import os
+
+FOLDER_OF_THIS_FILE = os.path.dirname(os.path.abspath(__file__))
+print(os.path.join(FOLDER_OF_THIS_FILE, 'locale'))
+pt_lang = gettext.translation('body', localedir=os.path.join(FOLDER_OF_THIS_FILE, 'locale'), languages=['pt'])
 
 import dash
 

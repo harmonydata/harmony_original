@@ -172,12 +172,13 @@ def add_view_2_callbacks(dash_app):
             State("excerpt_table", "derived_virtual_indices"),
             State("excerpt_table", "selected_rows"),
             Input("manual_edges", "data"),
-            Input("select_language", "value")
+            Input("select_language", "value"),
+            Input("dropdown_table_orientation", "value")
         ],
         prevent_initial_call=True
     )
     def display_similarity_graph(pickled, sensitivity, categories_to_display, columns, data, filtered_rows,
-                                 selected_rows, manual_edges_serialisable, language):
+                                 selected_rows, manual_edges_serialisable, language, table_orientation):
         if language == "pt":
             from application import pt_lang
             _ = pt_lang.gettext
@@ -216,6 +217,9 @@ def add_view_2_callbacks(dash_app):
 
         # Get the options
         node_options = get_node_options_with_cytoscape_colour_scheme(question_dfs)
+
+        if table_orientation == "v":
+            df_harmonised_text = df_harmonised_text.transpose()
 
         serialised_columns, serialised_data = serialise_dataframe(df_harmonised_text, False)
 
