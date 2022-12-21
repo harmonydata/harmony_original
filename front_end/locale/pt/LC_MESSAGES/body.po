@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-28 15:14-0300\n"
+"PO-Revision-Date: 2022-12-21 22:48+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.3\n"
+
+msgid "question numbers"
+msgstr "identificadores de perguntas"
+
+msgid "questions"
+msgstr "perguntas"
+
+msgid "options"
+msgstr "opções"
+
+msgid "match"
+msgstr "correspondência"
+
+msgid "Filename"
+msgstr "Arquivo"
+
+msgid "Field"
+msgstr "Campo"
+
+msgid "Language"
+msgstr "Língua"
+
+msgid "Unmatched questions"
+msgstr "Perguntas sem correspondência"
+
+msgid "positive"
+msgstr "positivo"
+
+msgid "negative"
+msgstr "negativo"
+
+msgid "no connection"
+msgstr "sem correspondência"
+
+msgid "Question No"
+msgstr "Número da Pergunta"
+
+msgid "Question"
+msgstr "Pergunta"
+
+msgid "Options"
+msgstr "Opções"
+
+msgid "Question Category"
+msgstr "Categoria da Pergunta"
+
+msgid "File"
+msgstr "Arquivo"
+
+msgid "Add row"
+msgstr "Nova linha"

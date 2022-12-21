@@ -2,13 +2,13 @@ import json
 
 from dash import Output, Input
 
-with open("localisation/translations.js", "r", encoding="utf-8") as f:
+with open("localisation/translations.json", "r", encoding="utf-8") as f:
     LANGUAGE_STRINGS = f.read()
 
 parsed_language_strings = json.loads(LANGUAGE_STRINGS)
 outputs = []
-for k, v, e, p in parsed_language_strings:
-    outputs.append(Output(k, v))
+for parse_language_tuple in parsed_language_strings:
+    outputs.append(Output(parse_language_tuple[0], parse_language_tuple[1]))
 
 
 def add_gettext_callbacks(dash_app):
