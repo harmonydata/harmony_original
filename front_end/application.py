@@ -1,20 +1,12 @@
-import gettext, os
-
-
-FOLDER_OF_THIS_FILE = os.path.dirname(os.path.abspath(__file__))
-print (os.path.join(FOLDER_OF_THIS_FILE, 'locale'))
-pt_lang = gettext.translation('body', localedir=os.path.join(FOLDER_OF_THIS_FILE, 'locale'), languages=['pt'])
-
+import os
 
 import dash
 
-from localisation.callbacks_gettext import add_gettext_callbacks
 # from dash_callbacks.callbacks_view_1 import add_view_1_callbacks
 # from dash_callbacks.callbacks_view_2 import add_view_2_callbacks
 from dash_callbacks.clientside_callbacks import add_clientside_callbacks
 from dash_layout.body import get_body
-
-
+from localisation.callbacks_gettext import add_gettext_callbacks
 
 # ------------------------------------------------------ APP ------------------------------------------------------
 
