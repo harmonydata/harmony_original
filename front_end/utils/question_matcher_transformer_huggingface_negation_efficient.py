@@ -42,9 +42,9 @@ class QuestionMatcherTransformerHuggingFaceNegationEfficient:
             df["parsed_neg"] = self.convert_texts_to_vector(negated)
             df["normalised"] = df.question.apply(normalise_question)
 
-            transforms.append(df["parsed"])
-            transforms_neg.append(df["parsed_neg"])
-            normalised_forms.append(df["normalised"])
+            transforms.append(df["parsed"].tolist())
+            transforms_neg.append(df["parsed_neg"].tolist())
+            normalised_forms.append(df["normalised"].tolist())
 
         if is_use_cosine_similarity:
             similarity_function = util.cos_sim

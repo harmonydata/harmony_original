@@ -187,9 +187,9 @@ def make_cytoscape_graph(files, question_dfs, G, df_harmonised, _):
         weight = networkx_edge_data['weight']
         edge_source = networkx_edge_data.get("source")
         edge = {'data': {'source': str(source), 'target': str(target),
-                         'myWidth': 15 * abs(weight),
+                         'myWidth': float(15 * abs(weight)),
                          'label': get_percent_label_string(weight, edge_source),
-                         'polarity': np.sign(weight),
+                         'polarity': float(np.sign(weight)),
                          'colour': get_edge_colour(np.sign(weight)),
                          'matchStrengthColour': get_edge_match_strength_colour(weight),
                          'linestyle': get_edge_style(edge_source),

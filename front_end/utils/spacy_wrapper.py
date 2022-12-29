@@ -183,4 +183,7 @@ for model in ["en_core_web_sm", "pt_core_news_sm"]:
 
 
 def get_spacy_model(language):
+    if language not in language_to_model:
+        print (f"Language {language} not supported. Defaulting to English.")
+        language = "en"
     return language_to_model[language]

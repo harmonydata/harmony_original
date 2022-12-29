@@ -4,6 +4,7 @@ import os
 import pickle as pkl
 import re
 import time
+import traceback
 
 import dash
 import flask
@@ -267,7 +268,13 @@ def add_view_1_callbacks(dash_app):
                 df_questions.attrs["language"] = language
             else:
                 df_questions = convert_jsonified_excel_to_questions_dataframe(pages)
-                language = detect(" ".join(df_questions["question"]))
+                language = "en"
+                try:
+                    language = detect(" ".join(df_questions["question"]))
+                except:
+                    print ("Error identifying language in Excel file")
+                    traceback.print_exc()
+                    traceback.print_stack()
 
                 if "filename" not in df_questions.columns:
                     df_questions["filename"] = file_name

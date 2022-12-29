@@ -7,8 +7,10 @@ pt_lang = gettext.translation('body', localedir=os.path.join(FOLDER_OF_THIS_FILE
 
 import dash
 
-# from dash_callbacks.callbacks_view_1 import add_view_1_callbacks
-# from dash_callbacks.callbacks_view_2 import add_view_2_callbacks
+is_ui_only = os.environ.get("UI_ONLY") in [True, "True", "true"]
+if not is_ui_only:
+    from dash_callbacks.callbacks_view_1 import add_view_1_callbacks
+    from dash_callbacks.callbacks_view_2 import add_view_2_callbacks
 from dash_callbacks.clientside_callbacks import add_clientside_callbacks
 from dash_layout.body import get_body
 from localisation.callbacks_gettext import add_gettext_callbacks
@@ -30,10 +32,10 @@ dash_app.layout = get_body(dash_app)
 # ------------------------------------------------------ Callbacks ------------------------------------------------------
 
 add_gettext_callbacks(dash_app)
-#
-# add_view_1_callbacks(dash_app)
-#
-# add_view_2_callbacks(dash_app)
+
+if not is_ui_only:
+    add_view_1_callbacks(dash_app)
+    add_view_2_callbacks(dash_app)
 
 add_clientside_callbacks(dash_app)
 
