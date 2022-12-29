@@ -52,8 +52,25 @@ flags = {
 }
 
 
-def get_human_readable_language(language):
+def get_human_readable_language(language: str) -> str:
+    """
+    Display language ID with a flag graphic for better readability.
+    :param language: The alpha-2 code of the language.
+    :return:
+    """
     return flags.get(language, "") + language.upper()
+
+def rearrange_columns(df_questions: pd.DataFrame) -> pd.DataFrame:
+    """
+    Move the Filename and Category columns to the beginning of the dataframe for better readability.
+    :param df_questions: a dataframe to display to the user in Panel 1.
+    :return: the same dataframe with columns rearranged.
+    """
+    cols = df_questions.columns
+    cols.insert(0, cols.pop(cols.index('filename')))
+    cols.insert(2, cols.pop(cols.index('question_category')))
+    df_questions = df_questions.loc[:, cols]
+    return df_questions
 
 
 def add_view_1_callbacks(dash_app):
@@ -306,9 +323,15 @@ def add_view_1_callbacks(dash_app):
 
         question_category_classifier.categorise_questions(df_questions)
 
+        # df_questions = rearrange_columns(df_questions)
+
         serialised_columns, serialised_data = serialise_dataframe(df_questions, True, _)
 
-        return [serialised_columns, serialised_data, list(range(len(serialised_data)))]
+        import json
+        print (json.dumps(serialised_columns, ensure_ascii=False, indent=4))
+
+        return [serialised_columns,
+                serialised_data, list(range(len(serialised_data)))]
 
     @dash_app.callback(
         output=[  # Output("paragraph_id", "children"),

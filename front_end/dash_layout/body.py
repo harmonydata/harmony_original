@@ -2,6 +2,7 @@ import bz2
 import os
 import pickle as pkl
 
+import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_cytoscape as cyto
 import dash_html_components as html
@@ -99,7 +100,8 @@ rows = [
                                     row_deletable=True,
                                     page_size=200,
                                     style_cell={"font-size": "10pt", "font-family": "PT Sans", "textAlign": "left",
-                                                "background-color": "white"}
+                                                "background-color": "white",'whiteSpace': 'normal',
+        'height': 'auto',}
 
                                 )]), ],
                                 className="file_selector"
@@ -131,9 +133,10 @@ rows = [
                                     filter_action='native',
                                     export_format="xlsx",
                                     row_selectable=True,
-                                    filter_options={"case":"insensitive"},
+                                    filter_options={"case": "insensitive"},
                                     style_cell={"font-size": "10pt", "font-family": "PT Sans", "textAlign": "left",
-                                                "background-color": "white"})])
+                                                "background-color": "white",'whiteSpace': 'normal',
+        'height': 'auto',})])
 
                         ], className="box"),
 
@@ -141,63 +144,84 @@ rows = [
 
             ),
 
+            html.Button([html.H2(id="go_to_2")], id="btn_go_to_2", className="nextbutton")
+
         ], id="upload_your_data", value="tab_upload_your_data", className="box tab",
             selected_className='tab-active'),
 
             dcc.Tab([
+                dbc.Button(
+                    id="collapse-button",
+                    n_clicks=0,
+                ),
                 html.Div([
-                    html.Div(
-                        [
-                            html.Button(id="btn_calculate_match"),
-                            html.Button(id="btn_save_graph"),
-                            html.Button(id="btn_show_tip1"),
+                    html.Div([
+                        html.Div(
+                            [
+                                html.Button(id="btn_calculate_match"),
+                                html.Button(id="btn_save_graph"),
+                                html.Button(id="btn_show_tip1"),
 
-                            # html.P(
-                            #     "Below you can see the questions where Harmony found a match."),
+dcc.Checklist(
+   value=[],
+    id="zoompan"
+),
 
-                            html.P(
-                                id="adjust_sensitivity"),
-                            dcc.Slider(0, 1, 0.1, value=0.3,
-                                       id='my-slider',
+                                # html.Button(id="btn_enable_zoom"),
+                                # html.Button(id="btn_enable_pan"),
 
-                                       ),
-                            html.P(
-                                id="filter_by_cat"),
-                            dcc.Dropdown(
-                                id='dropdown-categories',
-                                value=None,
-                                clearable=True,
-                                multi=True,
-                            ),
-                        ],
-                        className="box", style={"display": "inline-block", "width": "45%", "vertical-align": "top"}),
-                    html.Div(
-                        [
-                            html.P(
-                                id="click_to_add_remove"),
+                                # html.P(
+                                #     "Below you can see the questions where Harmony found a match."),
 
-                            dcc.Dropdown(
-                                id='dropdown-selected',
-                                value=None,
-                                clearable=True,
-                                multi=True,
-                            ),
-                            dcc.Dropdown(
-                                id='dropdown-edge',
-                                value=None,
-                                options=[{"value": 1, "label": "positive"}, {"value": -1, "label": "negative"},
-                                         {"value": 0, "label": "no connection"}],
-                            ),
-                            html.Button(id="btn_update_edge",
-                                        ),
-                            html.Button(id="btn_clear_edge",
-                                        ),
+                                html.P(
+                                    id="adjust_sensitivity"),
+                                dcc.Slider(0, 1, 0.1, value=0.3,
+                                           id='my-slider',
 
-                        ],
-                        className="box", style={"display": "inline-block", "width": "45%", "vertical-align": "top"}),
+                                           ),
+                                html.P(
+                                    id="filter_by_cat"),
+                                dcc.Dropdown(
+                                    id='dropdown-categories',
+                                    value=None,
+                                    clearable=True,
+                                    multi=True,
+                                ),
+                            ],
+                            className="box",
+                            style={"display": "inline-block", "width": "40%", "vertical-align": "top"}),
+                        html.Div(
+                            [
+                                html.P(
+                                    id="click_to_add_remove"),
 
-                ], id="box_graph_controls", style={"display": "none"}  # TODO
+                                dcc.Dropdown(
+                                    id='dropdown-selected',
+                                    value=None,
+                                    clearable=True,
+                                    multi=True,
+                                ),
+                                dcc.Dropdown(
+                                    id='dropdown-edge',
+                                    value=None,
+                                    options=[{"value": 1, "label": "positive"}, {"value": -1, "label": "negative"},
+                                             {"value": 0, "label": "no connection"}],
+                                ),
+                                html.Button(id="btn_update_edge",
+                                            ),
+                                html.Button(id="btn_clear_edge",
+                                            ),
 
+                            ],
+                            className="box",
+                            style={"display": "inline-block", "width": "40%", "vertical-align": "top"}),
+
+                    ], id="box_graph_controls", style={"display": "none"}  # TODO
+
+                    )],
+
+                    id="collapse",
+                    style={"display":"none"}
                 ),
 
                 html.Div([
@@ -217,13 +241,16 @@ rows = [
                              className="twbox sb2 twtooltip",
                              id="twtooltip1"
                              ),
+                    html.H2(id="your_matches"),
                     cyto.Cytoscape(
                         zoom=500,
                         id='cytoscape-update-layout',
                         layout={'name': 'preset'},
                         # boxSelectionEnabled=False,
                         # autounselectify=True,
-                        style={'width': '100%', 'height': '1000px'},
+                        style={'width': '100%', 'height': '600px'},
+                        userZoomingEnabled=False,
+                        userPanningEnabled=False,
                         # elements=elements
 
                         # stylesheet=cyto_stylesheet,
@@ -232,6 +259,8 @@ rows = [
                 ],
                     className="box"
                 ),
+
+                html.Button([html.H2(id="go_to_3")], id="btn_go_to_3", className="nextbutton")
 
             ], id="check_the_matches", value="tab_check_the_matches", className="box"),
 
@@ -243,10 +272,11 @@ rows = [
                         # html.P(
                         #     "Here are your results."),
                         dcc.Dropdown(id="dropdown_table_orientation",
-                                      options=[{"value":"h","label":"horizontal"},{"value":"v","label":"vertical"}],
+                                     options=[{"value": "h", "label": "horizontal"},
+                                              {"value": "v", "label": "vertical"}],
                                      value="h",
-                                     style={"max-width":"200px"}
-                                      ),
+                                     style={"max-width": "200px"}
+                                     ),
                         dash_table.DataTable(
                             id="results_table",
                             editable=True,
@@ -323,10 +353,10 @@ rows.append(html.Div([], id="log_tika", style={"opacity": "0.1"}))
 def get_body(dash_app):
     return html.Div([
 
-        html.Button( id="btn_show_side_bar",
+        html.Button(id="btn_show_side_bar",
                     style={"position": "absolute", "left": "0px", "top": "0px"}),
         html.Div([
-            html.Button( id="btn_hide_side_bar", className="control_label"),
+            html.Button(id="btn_hide_side_bar", className="control_label"),
             html.Img(src=dash_app.get_asset_url('logo-no-background.png'),
                      # style={'position': 'relative', 'width': '180%', 'left': '-83px', 'top': '-20px'}
                      style={"width": "100%", "margin-top": "20px"}
@@ -337,14 +367,11 @@ def get_body(dash_app):
                 id="select_language", value="en", multi=False),
             dcc.Markdown(style={'color': 'white'}, className="introtext", id="introtext"),
 
-
-            #html.Img(id="harmony_graphic",
-                     # style={'position': 'relative', 'width': '180%', 'left': '-83px', 'top': '-20px'}
-             #        style={"width": "100%"}
-              #       ),
+            # html.Img(id="harmony_graphic",
+            # style={'position': 'relative', 'width': '180%', 'left': '-83px', 'top': '-20px'}
+            #        style={"width": "100%"}
+            #       ),
         ], className='side_bar', id="side_bar"),
-
-
 
         html.Div(
             html.Div(rows, className='main', id="main"),

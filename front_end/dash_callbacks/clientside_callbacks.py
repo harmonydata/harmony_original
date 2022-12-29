@@ -1,4 +1,4 @@
-from dash import Output, Input
+from dash import Output, Input, State
 
 
 def add_clientside_callbacks(dash_app):
@@ -68,5 +68,56 @@ def add_clientside_callbacks(dash_app):
         [Input("twtooltip1", "n_clicks"),
          Input("btn_show_tip1", "n_clicks"),
          Input("is_visited_before", "data")],
+        prevent_initial_call=True,
+    )
+
+
+    dash_app.clientside_callback(
+            """
+            function(n, is_open) {
+                if (n > 0) {
+                    var s = {"display":"none"};
+                    if (is_open["display"] == "none") {
+                        s["display"] = "inline-block";
+                    }
+                    return s;
+                }
+            }
+            """,
+            Output("collapse", "style"),
+            [Input("collapse-button", "n_clicks"),
+            State("collapse", "style")],
+            prevent_initial_call=True,
+        )
+
+
+
+    dash_app.clientside_callback(
+            """
+            function(n) {
+                return [n.includes("zoom"), n.includes("pan")];
+            }
+            """,
+            [Output("cytoscape-update-layout", "userPanningEnabled"),
+             Output("cytoscape-update-layout", "userZoomingEnabled")],
+            [Input("zoompan", "value")],
+            prevent_initial_call=True,
+        )
+
+
+    dash_app.clientside_callback(
+        """
+        function(n) {
+            const triggered = dash_clientside.callback_context.triggered.map(t => t.prop_id);
+            if (triggered=="btn_go_to_2.n_clicks") {
+                return "tab_check_the_matches";
+            } else {
+                return "tab_export_excel";
+            }
+        }
+        """,
+        [Output("tabs", "value")],
+        [Input("btn_go_to_2", "n_clicks"),
+         Input("btn_go_to_3", "n_clicks")],
         prevent_initial_call=True,
     )

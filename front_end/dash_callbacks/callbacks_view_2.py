@@ -12,12 +12,14 @@ from dash_callbacks.cytoscape_wrapper import get_cyto_stylesheet, get_node_optio
     make_cytoscape_graph
 from dash_callbacks.graph_utils import get_question_dfs, convert_similarities_into_network_graph, \
     add_manual_edges_to_generated_graph, convert_network_graph_to_dataframes
-from utils.question_matcher_transformer_huggingface_negation_efficient import QuestionMatcherTransformerHuggingFaceNegationEfficient
 from utils.serialisation_tools import deserialise_manual_edges, serialise_manual_edges, deserialise_questions_dataframe, \
     serialise_dataframe
 
-question_matcher = QuestionMatcherTransformerHuggingFaceNegationEfficient('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
+# from utils.question_matcher_transformer_huggingface_negation_efficient import QuestionMatcherTransformerHuggingFaceNegationEfficient
+# question_matcher = QuestionMatcherTransformerHuggingFaceNegationEfficient('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
 
+from utils.question_matcher_nonpretrained import QuestionMatcherNonpretrained
+question_matcher = QuestionMatcherNonpretrained()
 
 def add_view_2_callbacks(dash_app):
     @dash_app.callback(

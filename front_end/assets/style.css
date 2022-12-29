@@ -429,3 +429,9 @@ button {
 .introtext a {
     color: white;
 }
+
+.nextbutton {
+    text-align: center;
+    background-color: #4B9072;
+    color: white;
+}

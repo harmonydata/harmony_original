@@ -124,14 +124,14 @@
         "marks",
         {
             "0": "0% (show everything)",
-            "0.2": "20% (approximate matches)",
+            "0.2": "20%",
             "0.5": "50%",
             "0.8": "80% (close matches)",
             "1": "100% (exact matches)"
         },
         {
             "0": "0% (mostrar tudo)",
-            "0.2": "20% (correspondências aproximadas)",
+            "0.2": "20%",
             "0.5": "50%",
             "0.8": "80% (correspondências próximas)",
             "1": "100% (correspondências exatas)"
@@ -241,16 +241,60 @@
         "Add row",
         "Nova linha"
     ],
-        [
+    [
         "btn_show_side_bar",
         "children",
         "Show side bar",
         "Mostrar barra lateral"
     ],
-        [
+    [
         "btn_hide_side_bar",
         "children",
         "Hide side bar",
         "Ocultar barra lateral"
-    ]
+    ],
+    [
+        "collapse-button",
+        "children",
+        "Show/hide graph options",
+        "Mostrar/ocultar opções do gráfico"
+    ],
+    [
+        "your_matches",
+        "children",
+        "Your matches",
+        "As suas correspondências"
+    ],
+    [
+        "zoompan",
+        "options",
+        [
+            {
+                "label": "Enable mouse wheel zooming",
+                "value": "zoom"
+            },
+            {
+                "label": "Enable panning by dragging the mouse",
+                "value": "pan"
+            }
+        ],
+        [
+            {
+                "label": "Ativar o zoom da roda do mouse",
+                "value": "zoom"
+            },
+            {
+                "label": "Habilite a panorâmica arrastando o mouse",
+                "value": "pan"
+            }
+        ]
+    ],
+    ["go_to_2",
+    "children",
+    "Next: check your matches!",
+    "Agora: verifique suas correspondências!"],
+    ["go_to_3",
+    "children",
+    "Next: export your data!",
+    "Agora: exporte seus dados!"]
 ]
