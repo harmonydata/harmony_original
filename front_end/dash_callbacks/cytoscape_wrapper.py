@@ -261,32 +261,18 @@ def make_cytoscape_graph(files, question_dfs, G, df_harmonised, _):
                     is_paginated_unassigned_nodes = True
 
     if is_paginated_unassigned_nodes:
-        elements.append({'data': {'id': "unassigned", 'text': _("Unmatched questions"), 'label': _("Unmatched questions")},
-                         'classes': "unassigned"})
+        elements.append(
+            {'data': {'id': "unassigned", 'text': _("Unmatched questions"), 'label': _("Unmatched questions")},
+             'classes': "unassigned"})
 
     pos = dict([(cell, (x * 450, y * 100 + downshift.get(cell, 0) * 50)) for cell, (x, y) in columns_and_rows.items()])
-    # not needed any more
-    # # Align everything to the top
-    # lowest_position_by_file_id = {}
-    # for cell, position in pos.items():
-    #     file_id, _ = cell
-    #     y_pos = position[1]
-    #     if file_id not in lowest_position_by_file_id or y_pos < lowest_position_by_file_id[file_id]:
-    #         lowest_position_by_file_id[file_id] = y_pos
-    #
-    # for i in range(len(df_harmonised)):
-    #     if lowest_position_by_file_id[i] > 0:
-    #         for cell, position in pos.items():
-    #             file_id, _ = cell
-    #             if file_id == i:
-    #                 pos[cell][1] = pos[cell][1] - lowest_position_by_file_id[i]
 
     cytoscape_layout = {
         'name': "preset",
         'animate': True,
         'positions': {
-            str(short): {'x': pos[short][0], 'y': pos[short][1]}
-            for short, attr in G.nodes.items()
+            str(node_id): {'x': pos[node_id][0], 'y': pos[node_id][1]}
+            for node_id, attr in G.nodes.items()
         },
     }
 
