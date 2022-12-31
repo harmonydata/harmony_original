@@ -332,5 +332,41 @@
   ["btn_filter_topic",
   "children",
   "Filter",
-  "Filtrar"]
+  "Filtrar"],
+  [
+    "filter_by_file",
+    "children",
+    "Filter questions by file:",
+    "Filtrar perguntas por arquivo:"
+  ],
+   [
+    "display_style",
+    "children",
+    "Display style:",
+    "Estilo do gráfico:"
+  ],
+   [
+    "dropdown_display_style",
+    "options",
+    [
+      {
+        "value": 0,
+        "label": "files separated"
+      },
+      {
+        "value": 1,
+        "label": "files together"
+      }
+    ],
+    [
+      {
+        "value": 0,
+        "label": "arquivos separados"
+      },
+      {
+        "value": 1,
+        "label": "arquivos juntos"
+      }
+    ]
+   ]
 ]

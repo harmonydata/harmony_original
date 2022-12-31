@@ -14,7 +14,6 @@ def normalise_question(text):
 
 
 class QuestionMatcherTransformerHuggingFaceNegationEfficient:
-
     def __init__(self, sentence_transformer_path):
         self.model = SentenceTransformer(sentence_transformer_path)
 
@@ -28,6 +27,7 @@ class QuestionMatcherTransformerHuggingFaceNegationEfficient:
         return [embeddings[i] for i in range(embeddings.shape[0])]
 
     def match_questions(self, dfs, is_use_cosine_similarity=False, is_disable_negation=False):
+        # TODO: this can be rewritten to make it more efficient, taking only a single dataframe and calculating all vectors and similarities in a single operation.
 
         matches = {}
 
@@ -37,13 +37,13 @@ class QuestionMatcherTransformerHuggingFaceNegationEfficient:
         for df in dfs:
             language = df.attrs.get('language', 'en')
 
-            df["parsed"] = self.convert_texts_to_vector(df.question)
+            df["vector"] = self.convert_texts_to_vector(df.question)
             negated = df.question.apply(lambda q: negate(q, language))
-            df["parsed_neg"] = self.convert_texts_to_vector(negated)
+            df["vector_neg"] = self.convert_texts_to_vector(negated)
             df["normalised"] = df.question.apply(normalise_question)
 
-            transforms.append(df["parsed"].tolist())
-            transforms_neg.append(df["parsed_neg"].tolist())
+            transforms.append(df["vector"].tolist())
+            transforms_neg.append(df["vector_neg"].tolist())
             normalised_forms.append(df["normalised"].tolist())
 
         if is_use_cosine_similarity:
@@ -52,7 +52,7 @@ class QuestionMatcherTransformerHuggingFaceNegationEfficient:
             similarity_function = util.dot_score
 
         for i in range(len(transforms)):
-            for j in range(i + 1, len(transforms)):
+            for j in range(i, len(transforms)):
                 pairwise_similarity = similarity_function(transforms[i], transforms[j]).numpy()
                 pairwise_similarity_neg1 = similarity_function(transforms_neg[i], transforms[j]).numpy()
                 pairwise_similarity_neg2 = similarity_function(transforms[i], transforms_neg[j]).numpy()
@@ -66,6 +66,8 @@ class QuestionMatcherTransformerHuggingFaceNegationEfficient:
                     similarity_with_polarity = similarity_max * similarity_polarity
                 for ii in range(len(transforms[i])):
                     for jj in range(len(transforms[j])):
+                        if i == j and ii == jj:
+                            continue
                         matches[(i, ii, j, jj)] = similarity_with_polarity[ii, jj]
 
         return matches

@@ -28,7 +28,6 @@ def get_options_of_question(question_dfs: list, node: tuple) -> str:
 
 
 def convert_network_graph_to_dataframes(files: list, question_dfs: list, G: nx.Graph, _) -> list:
-
     weight_lookup = nx.get_edge_attributes(G, 'weight')
 
     def get_importance_of_connected_component(set_of_nodes):
@@ -199,7 +198,9 @@ def get_question_dfs(df_questions: pd.DataFrame) -> tuple:
     return files, question_dfs
 
 
-def convert_similarities_into_network_graph(question_dfs: list, matches: dict, sensitivity: float) -> nx.Graph:
+def convert_similarities_into_network_graph(question_dfs: list, matches: dict, sensitivity: float,
+                                            is_allow_matches_within_instrument: bool,
+                                            is_allow_multiple_edges_per_node: bool) -> nx.Graph:
     # Make a network graph
     G = nx.Graph()
 
@@ -215,6 +216,9 @@ def convert_similarities_into_network_graph(question_dfs: list, matches: dict, s
 
         document_pair = tuple(sorted([doc1_node1_doc2_node2_tuple[0], doc1_node1_doc2_node2_tuple[2]]))
 
+        if not is_allow_matches_within_instrument and document_pair[0] == document_pair[1]:
+            continue
+
         n1 = (doc1_node1_doc2_node2_tuple[0], doc1_node1_doc2_node2_tuple[1])
         n2 = (doc1_node1_doc2_node2_tuple[2], doc1_node1_doc2_node2_tuple[3])
 
@@ -225,7 +229,7 @@ def convert_similarities_into_network_graph(question_dfs: list, matches: dict, s
             nodes_already_seen_for_document_pair[document_pair] = set()
         nodes_already_seen = nodes_already_seen_for_document_pair[document_pair]
 
-        if n1 not in nodes_already_seen and n2 not in nodes_already_seen:
+        if is_allow_multiple_edges_per_node or (n1 not in nodes_already_seen and n2 not in nodes_already_seen):
             G.add_edge(n1, n2, weight=match_strength)
             nodes_already_seen.add(n1)
             nodes_already_seen.add(n2)

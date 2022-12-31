@@ -37,6 +37,7 @@ rows = [
     dcc.Store("manual_edges"),
     dcc.Store("document_content"),
     dcc.Store("similaritystore"),
+    dcc.Store("document_vectors"),
     dcc.Tabs(
         [dcc.Tab([
 
@@ -62,7 +63,7 @@ rows = [
                                 [
                                     dcc.Tab([
                                         html.P([
-                                                html.Button(id="btn_show_tip0")], className="control_label"),
+                                            html.Button(id="btn_show_tip0")], className="control_label"),
 
                                         dcc.Upload(id='upload-data',
                                                    children=html.Div([
@@ -87,13 +88,13 @@ rows = [
                                                    accept="application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                                                    ),
                                     ],
-                                    id="tab_upload_your_documents", value="tab_upload_your_documents"),
+                                        id="tab_upload_your_documents", value="tab_upload_your_documents"),
                                     dcc.Tab([
                                         dcc.Input(id="paste_data_title", value="Instrument"),
                                         dcc.Textarea(id="paste_data", style={"width": "100%", "height": "200px"}),
                                         html.Button(id="btn_show_paste_data"),
-                                    ],id="tab_paste_data", value="tab_paste_data")
-                                ],value="tab_upload_your_documents"
+                                    ], id="tab_paste_data", value="tab_paste_data")
+                                ], value="tab_upload_your_documents"
 
                             ),
 
@@ -138,20 +139,21 @@ rows = [
                                              style={'float': 'left', 'width': '50%', "margin-left": "20px"})],
                                 style={"display": "flex", "width": "100%"}),
 
-html.Div([
+                            html.Div([
                                 html.P(id="filter_by_topic", className="control_label",
                                        style={'float': 'left'}),
                                 dcc.Input(id="filter_topic",
-                                             style={'float': 'left', 'width': '30%', "margin-left": "20px", 'height': '40px'}),
+                                          style={'float': 'left', 'width': '30%', "margin-left": "20px",
+                                                 'height': '40px'}),
                                 html.Span([
-                                dcc.Slider(0, 1, 0.1, value=0.3,
-                                           id='filter_topic_threshold',
+                                    dcc.Slider(0, 1, 0.1, value=0.3,
+                                               id='filter_topic_threshold',
 
-                                           ),
-                                    ], style={'float': 'left', 'width': '30%', "margin-left": "20px",}),
+                                               ),
+                                ], style={'float': 'left', 'width': '30%', "margin-left": "20px", }),
                                 html.Button(id="btn_filter_topic")
 
-],
+                            ],
                                 style={"display": "flex", "width": "100%"}),
 
                             html.Button(id="add_row"),
@@ -178,7 +180,8 @@ html.Div([
             ),
 
             html.P([
-            html.Button([html.H2(id="go_to_2")], id="btn_go_to_2", className="nextbutton")],style={"padding-left":"30px"}
+                html.Button([html.H2(id="go_to_2")], id="btn_go_to_2", className="nextbutton")],
+                style={"padding-left": "30px"}
             )
         ], id="upload_your_data", value="tab_upload_your_data", className="box tab",
             selected_className='tab-active'),
@@ -213,14 +216,29 @@ html.Div([
                                            id='my-slider',
 
                                            ),
-                                html.P(
-                                    id="filter_by_cat"),
-                                dcc.Dropdown(
-                                    id='dropdown-categories',
-                                    value=None,
-                                    clearable=True,
-                                    multi=True,
-                                ),
+
+                                html.Div([
+                                    html.P(id="filter_by_cat", className="control_label",
+                                           style={'float': 'left'}),
+                                    dcc.Dropdown(
+                                        id='dropdown-categories',
+                                        value=None,
+                                        clearable=True,
+                                        multi=True,
+                                        style={'float': 'left', 'width': '80%', "margin-left": "20px"})],
+                                    style={"display": "flex", "width": "100%", "margin-top": "20px"}),
+
+                                html.Div([
+                                    html.P(id="filter_by_file", className="control_label",
+                                           style={'float': 'left'}),
+                                    dcc.Dropdown(
+                                        id='dropdown-files',
+                                        value=None,
+                                        clearable=True,
+                                        multi=True,
+                                        style={'float': 'left', 'width': '80%', "margin-left": "20px"})],
+                                    style={"display": "flex", "width": "100%"}),
+
                             ],
                             className="box",
                             style={"display": "inline-block", "width": "40%", "vertical-align": "top"}),
@@ -245,6 +263,16 @@ html.Div([
                                             ),
                                 html.Button(id="btn_clear_edge",
                                             ),
+
+                                html.Div([
+                                    html.P(id="display_style", className="control_label",
+                                           style={'float': 'left'}),
+                                    dcc.Dropdown(
+                                        id='dropdown_display_style',
+                                        value=0,
+                                        style={'float': 'left', 'width': '80%', "min-width": "150px",
+                                               "margin-left": "20px"})],
+                                    style={"display": "hidden", "width": "80%", "visibility": "hidden"}),
 
                             ],
                             className="box",
@@ -294,7 +322,8 @@ html.Div([
                     className="box"
                 ),
                 html.P([
-                html.Button([html.H2(id="go_to_3")], id="btn_go_to_3", className="nextbutton")],style={"padding-left":"30px"}
+                    html.Button([html.H2(id="go_to_3")], id="btn_go_to_3", className="nextbutton")],
+                    style={"padding-left": "30px"}
                 )
             ], id="check_the_matches", value="tab_check_the_matches", className="box"),
 
@@ -307,7 +336,8 @@ html.Div([
                         #     "Here are your results."),
                         dcc.Dropdown(id="dropdown_table_orientation",
                                      options=[{"value": "h", "label": "horizontal"},
-                                              {"value": "v", "label": "vertical"}],
+                                              {"value": "v", "label": "vertical"},
+                                              {"value": "m", "label": "matrix"}],
                                      value="h",
                                      style={"max-width": "200px"}
                                      ),
@@ -364,9 +394,9 @@ html.Div([
 
 rows.append(
     html.P([
-    dcc.Markdown(id="how_does_it_work", style={"padding-left":"20px"}),
+        dcc.Markdown(id="how_does_it_work", style={"padding-left": "20px"}),
 
-        ])
+    ])
 )
 
 rows.append(

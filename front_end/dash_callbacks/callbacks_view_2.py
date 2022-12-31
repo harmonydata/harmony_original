@@ -3,16 +3,18 @@ import pickle as pkl
 import re
 
 import numpy as np
+import pandas as pd
 from dash import Input, Output, ctx
 from dash import callback_context
 from dash.dependencies import State
 from dash.exceptions import PreventUpdate
+from sklearn.manifold import TSNE
 
 from dash_callbacks.cytoscape_wrapper import get_cyto_stylesheet, get_node_options_with_cytoscape_colour_scheme, \
     make_cytoscape_graph
 from dash_callbacks.graph_utils import get_question_dfs, convert_similarities_into_network_graph, \
-    add_manual_edges_to_generated_graph, convert_network_graph_to_dataframes
-# TODO: fix this back
+    add_manual_edges_to_generated_graph, convert_network_graph_to_dataframes, get_text_of_question, \
+    get_number_of_question
 from utils.question_matcher_transformer_huggingface_negation_efficient import \
     QuestionMatcherTransformerHuggingFaceNegationEfficient
 from utils.serialisation_tools import deserialise_manual_edges, serialise_manual_edges, deserialise_questions_dataframe, \
@@ -31,6 +33,8 @@ def add_view_2_callbacks(dash_app):
             Output("similaritystore", "data"),
             Output("all_loading_messages", "style"),
             Output("dropdown-categories", "options"),
+            Output("dropdown-files", "options"),
+            Output("document_vectors", "data"),
         ]
         ,
         inputs=[
@@ -83,7 +87,16 @@ def add_view_2_callbacks(dash_app):
         for cat in sorted(set(df_questions.question_category)):
             category_options.append({"label": cat, "value": cat})
 
-        return [pickled, text_style, category_options]
+        file_options = []
+        for f in sorted(set(df_questions.filename)):
+            file_options.append({"label": f, "value": f})
+
+        serialisable_document_vectors = []
+        for question_df_idx, df in enumerate(question_dfs):
+            for j in range(len(df)):
+                serialisable_document_vectors.append([str((question_df_idx, j)), [float(x) for x in df.vector.iloc[j]]])
+
+        return [pickled, text_style, category_options, file_options, serialisable_document_vectors]
 
     @dash_app.callback([
         Output("dropdown-selected", "value"),
@@ -173,18 +186,25 @@ def add_view_2_callbacks(dash_app):
             Input("similaritystore", "data"),
             Input("my-slider", "value"),
             Input("dropdown-categories", "value"),
+            Input("dropdown-files", "value"),
+            Input("manual_edges", "data"),
+            Input("select_language", "value"),
+            Input("dropdown_table_orientation", "value"),
+            # Input("dropdown_display_style", "value"),
             State("excerpt_table", "columns"),
             State("excerpt_table", "data"),
             State("excerpt_table", "derived_virtual_indices"),
             State("excerpt_table", "selected_rows"),
-            Input("manual_edges", "data"),
-            Input("select_language", "value"),
-            Input("dropdown_table_orientation", "value")
+            State("document_vectors", "data")
         ],
         prevent_initial_call=True
     )
-    def display_similarity_graph(pickled, sensitivity, categories_to_display, columns, data, filtered_rows,
-                                 selected_rows, manual_edges_serialisable, language, table_orientation):
+    def display_similarity_graph(pickled, sensitivity, categories_to_display, files_to_display,
+                                 manual_edges_serialisable, language, table_orientation,  # display_style,
+                                 columns, data,
+                                 filtered_rows,
+                                 selected_rows,
+                                 document_vectors):
         if language == "pt":
             from application import pt_lang
             _ = pt_lang.gettext
@@ -208,10 +228,16 @@ def add_view_2_callbacks(dash_app):
         else:
             df_questions["is_include"] = True
 
+        if files_to_display is not None and len(files_to_display) > 0:
+            df_questions["is_include"] = df_questions["is_include"] & df_questions["filename"].isin(files_to_display)
+
         # start of method
         files, question_dfs = get_question_dfs(df_questions)
 
-        G = convert_similarities_into_network_graph(question_dfs, matches, sensitivity)
+        num_different_files = len(files)
+
+        G = convert_similarities_into_network_graph(question_dfs, matches, sensitivity, num_different_files == 1,
+                                                    num_different_files == 1)
 
         add_manual_edges_to_generated_graph(G, manual_edges)
 
@@ -221,11 +247,86 @@ def add_view_2_callbacks(dash_app):
 
         elements, cytoscape_layout = make_cytoscape_graph(files, question_dfs, G, df_harmonised, _)
 
+        if num_different_files == 1:
+            # Override the positions with a TSNE-derived set of coordinates.
+            ## TSNE
+            tsne = TSNE(n_components=2, verbose=1, random_state=123)
+
+            document_vector_values = np.asarray([x[1] for x in document_vectors])
+            document_vector_keys = [x[0] for x in document_vectors]
+
+            z = tsne.fit_transform(document_vector_values)
+
+            # Delete the parent nodes as outgoing links from child nodes
+            parents = set()
+            for e in elements:
+                if "parent" in e:
+                    parents.add(e['parent'])
+                    del e["parent"]
+
+            # Remove all the parent nodes from the graph
+            elements = [e for e in elements if "data" not in e or "(" in e["data"].get("id", "(")]
+            # print ("ELEMENTS", json.dumps(elements, indent=4))
+
+            # Scale everything to keep the same scale
+            min_x = min([x['x'] for x in cytoscape_layout["positions"].values()])
+            max_x = max([x['x'] for x in cytoscape_layout["positions"].values()])
+            min_y = min([x['y'] for x in cytoscape_layout["positions"].values()])
+            max_y = max([x['y'] for x in cytoscape_layout["positions"].values()])
+
+            min_x_tsne = min(z[:, 0])
+            max_x_tsne = max(z[:, 0])
+
+            min_y_tsne = min(z[:, 1])
+            max_y_tsne = max(z[:, 1])
+
+            if max_x_tsne > min_x_tsne and max_y_tsne > min_y_tsne:
+                x_scale = (max_x - min_x) / (max_x_tsne - min_x_tsne)
+                y_scale = (max_y - min_y) / (max_y_tsne - min_y_tsne)
+            else:
+                x_scale = 10
+                y_scale = 10
+
+            z *= np.mean([x_scale, y_scale])
+            z[:, 0] = z[:, 0] * 4  # stretch in x-dimension
+
+            for idx in range(len(document_vectors)):
+                cytoscape_layout["positions"][document_vector_keys[idx]] = {"x": float(z[idx][0]),
+                                                                            "y": float(z[idx][1])}
+
+            ### END TSNE
+
         # Get the options
         node_options = get_node_options_with_cytoscape_colour_scheme(question_dfs)
 
         if table_orientation == "v":
             df_harmonised_text = df_harmonised_text.transpose()
+        elif table_orientation == "m":
+            # build a matrix
+            axes = sorted([node for node, attr in G.nodes.items()])
+            print("axes", axes, type(axes), type(axes[0]))
+            values = np.zeros((len(axes), len(axes)))
+            for m, v in matches.items():
+                print("m is", m, type(m))
+                k1 = tuple(m[:2])
+                k2 = tuple(m[2:])
+                x = axes.index(k1)
+                y = axes.index(k2)
+
+                values[x, y] = v
+                values[y, x] = v
+            df_harmonised_text = pd.DataFrame()
+            df_harmonised_text["filename"] = [files[a[0]] for a in axes]
+            df_harmonised_text["question_no"] = [get_number_of_question(question_dfs, a) for a in axes]
+            df_harmonised_text["question"] = [get_text_of_question(question_dfs, a) for a in axes]
+            for idx, a in enumerate(axes):
+                v = []
+                for x in values[idx, :]:
+                    if x != 0:
+                        v.append(str(x))
+                    else:
+                        v.append("")
+                df_harmonised_text[get_text_of_question(question_dfs, a)] = v
 
         serialised_columns, serialised_data = serialise_dataframe(df_harmonised_text, False)
 
