@@ -56,30 +56,46 @@ rows = [
                                 style=dataset_selector_style
                             ),
                             html.P(style=dataset_selector_style, id="or"),
-                            html.P([html.Span("Upload your documents ", id="upload_your_documents"),
-                                    html.Button(id="btn_show_tip0")], className="control_label"),
 
-                            dcc.Upload(id='upload-data',
-                                       children=html.Div([
-                                           html.Span('Drag and Drop PDFs or Excels', id="drag_drop"), html.Br(),
-                                           html.Span(' or ', id="or2"), html.Br(),
-                                           html.A('Select Files from your Computer', id="select_files")
-                                       ]),
-                                       style={
-                                           # 'width': '100%',
-                                           'height': '120px',
-                                           'lineHeight': '40px',
-                                           'borderWidth': '1px',
-                                           'borderStyle': 'dashed',
-                                           'borderRadius': '5px',
-                                           'textAlign': 'center',
-                                           'margin': '10px'
-                                       },
+                            dcc.Tabs(
 
-                                       # Allow multiple files to be uploaded
-                                       multiple=True,
-                                       accept="application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                                       ),
+                                [
+                                    dcc.Tab([
+                                        html.P([
+                                                html.Button(id="btn_show_tip0")], className="control_label"),
+
+                                        dcc.Upload(id='upload-data',
+                                                   children=html.Div([
+                                                       html.Span('Drag and Drop PDFs or Excels', id="drag_drop"),
+                                                       html.Br(),
+                                                       html.Span(' or ', id="or2"), html.Br(),
+                                                       html.A('Select Files from your Computer', id="select_files")
+                                                   ]),
+                                                   style={
+                                                       # 'width': '100%',
+                                                       'height': '120px',
+                                                       'lineHeight': '40px',
+                                                       'borderWidth': '1px',
+                                                       'borderStyle': 'dashed',
+                                                       'borderRadius': '5px',
+                                                       'textAlign': 'center',
+                                                       'margin': '10px'
+                                                   },
+
+                                                   # Allow multiple files to be uploaded
+                                                   multiple=True,
+                                                   accept="application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                                   ),
+                                    ],
+                                    id="tab_upload_your_documents", value="tab_upload_your_documents"),
+                                    dcc.Tab([
+                                        dcc.Input(id="paste_data_title", value="Instrument"),
+                                        dcc.Textarea(id="paste_data", style={"width": "100%", "height": "200px"}),
+                                        html.Button(id="btn_show_paste_data"),
+                                    ],id="tab_paste_data", value="tab_paste_data")
+                                ],value="tab_upload_your_documents"
+
+                            ),
 
                             html.Div([dcc.Markdown(id="tip0"),
                                       html.Button(id="twtooltipbtnexit0",
@@ -100,8 +116,8 @@ rows = [
                                     row_deletable=True,
                                     page_size=200,
                                     style_cell={"font-size": "10pt", "font-family": "PT Sans", "textAlign": "left",
-                                                "background-color": "white",'whiteSpace': 'normal',
-        'height': 'auto',}
+                                                "background-color": "white", 'whiteSpace': 'normal',
+                                                'height': 'auto', }
 
                                 )]), ],
                                 className="file_selector"
@@ -135,8 +151,8 @@ rows = [
                                     row_selectable=True,
                                     filter_options={"case": "insensitive"},
                                     style_cell={"font-size": "10pt", "font-family": "PT Sans", "textAlign": "left",
-                                                "background-color": "white",'whiteSpace': 'normal',
-        'height': 'auto',})])
+                                                "background-color": "white", 'whiteSpace': 'normal',
+                                                'height': 'auto', })])
 
                         ], className="box"),
 
@@ -144,8 +160,9 @@ rows = [
 
             ),
 
-            html.Button([html.H2(id="go_to_2")], id="btn_go_to_2", className="nextbutton")
-
+            html.P([
+            html.Button([html.H2(id="go_to_2")], id="btn_go_to_2", className="nextbutton")],style={"padding-left":"30px"}
+            )
         ], id="upload_your_data", value="tab_upload_your_data", className="box tab",
             selected_className='tab-active'),
 
@@ -162,10 +179,10 @@ rows = [
                                 html.Button(id="btn_save_graph"),
                                 html.Button(id="btn_show_tip1"),
 
-dcc.Checklist(
-   value=[],
-    id="zoompan"
-),
+                                dcc.Checklist(
+                                    value=[],
+                                    id="zoompan"
+                                ),
 
                                 # html.Button(id="btn_enable_zoom"),
                                 # html.Button(id="btn_enable_pan"),
@@ -221,7 +238,7 @@ dcc.Checklist(
                     )],
 
                     id="collapse",
-                    style={"display":"none"}
+                    style={"display": "none"}
                 ),
 
                 html.Div([
@@ -259,9 +276,9 @@ dcc.Checklist(
                 ],
                     className="box"
                 ),
-
-                html.Button([html.H2(id="go_to_3")], id="btn_go_to_3", className="nextbutton")
-
+                html.P([
+                html.Button([html.H2(id="go_to_3")], id="btn_go_to_3", className="nextbutton")],style={"padding-left":"30px"}
+                )
             ], id="check_the_matches", value="tab_check_the_matches", className="box"),
 
             dcc.Tab([
@@ -329,6 +346,13 @@ dcc.Checklist(
 ]
 
 rows.append(
+    html.P([
+    dcc.Markdown(id="how_does_it_work", style={"padding-left":"20px"}),
+
+        ])
+)
+
+rows.append(
 
     html.Div(
         [
@@ -355,6 +379,7 @@ def get_body(dash_app):
 
         html.Button(id="btn_show_side_bar",
                     style={"position": "absolute", "left": "0px", "top": "0px"}),
+
         html.Div([
             html.Button(id="btn_hide_side_bar", className="control_label"),
             html.Img(src=dash_app.get_asset_url('logo-no-background.png'),
@@ -365,6 +390,11 @@ def get_body(dash_app):
             dcc.Dropdown(
                 options=[{"label": "🇬🇧🇺🇸 English", "value": "en"}, {"label": "🇧🇷🇵🇹 Português", "value": "pt"}],
                 id="select_language", value="en", multi=False),
+
+            html.Div(html.A(id="feedback", target="newfeedback",
+                            href="https://docs.google.com/forms/d/e/1FAIpQLSfEQi_8oV-MncRaelrJLLeGZvJJ10Th7aCeXI-N7c3NNSTppw/viewform?usp=sf_link",
+                            style={"color": "white"})),
+
             dcc.Markdown(style={'color': 'white'}, className="introtext", id="introtext"),
 
             # html.Img(id="harmony_graphic",

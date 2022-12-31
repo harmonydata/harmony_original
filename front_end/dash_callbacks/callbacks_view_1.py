@@ -33,9 +33,12 @@ question_category_classifier = QuestionCategoryClassifier("models/question_categ
 # adult_child_classifier = AdultChildClassifier("models/adult_child_classifier.pkl.bz2")
 # questionnaire_classifier = QuestionnaireClassifier("models/questionnaire_classifier.pkl.bz2")
 
+# Token contains a number but may not contain exclusively a number
 number_regex = re.compile(r'^(\d+)\. ')
+# Token is only a pure integer number.
 just_number_regex = re.compile(r'^\d+$')
 
+# Unicode characters for all language flags featured in the app.
 flags = {
     "zh": "🇨🇳",
     "es": "🇪🇸🇲🇽",
@@ -74,6 +77,12 @@ def rearrange_columns(df_questions: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_view_1_callbacks(dash_app):
+    """
+    Define all callbacks related to Tab 1 ("Upload your items").
+
+    :param dash_app:
+    :return:
+    """
     @dash_app.callback(output=[Output("is_visited_before", "data")],
                        inputs=[Input("url", "href")]
                        )
@@ -118,15 +127,18 @@ def add_view_1_callbacks(dash_app):
         ,
         inputs=[Input("file_table", "data"),  # Commented out temporarily to remove circular dependency warning
                 Input("dataset", "value"),
+                Input("btn_show_paste_data", "n_clicks"),
                 Input('upload-data', 'contents'),
                 State('upload-data', 'filename'),
                 State('upload-data', 'last_modified'),
                 State("document_content", "data"),
+                State('paste_data_title', 'value'),
+                State("paste_data", "value"),
                 ],
         prevent_initial_call=True
     )
     def user_uploaded_files(file_table,
-                            selected_datasets, all_file_contents, file_names, file_date, parsed_documents):
+                            selected_datasets, n_clicks, all_file_contents, file_names, file_date, parsed_documents, paste_data_title, paste_data):
 
         print("file_names", file_names)
 
@@ -149,7 +161,11 @@ def add_view_1_callbacks(dash_app):
         # END FOR DEBUGGING
 
         print("trigger_id", trigger_id)
-        if trigger_id == "file_table":
+        if trigger_id == "btn_show_paste_data":
+            if paste_data_title is None or paste_data_title == "":
+                paste_data_title = "Items"
+            parsed_documents[paste_data_title] = parse_pdf(paste_data)
+        elif trigger_id == "file_table":
             # User deleted a row
             files_to_include = [r["File"] for r in file_table]
             print("files_to_include", files_to_include)
