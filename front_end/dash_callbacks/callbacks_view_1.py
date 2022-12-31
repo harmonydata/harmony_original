@@ -38,6 +38,8 @@ number_regex = re.compile(r'^(\d+)\. ')
 # Token is only a pure integer number.
 just_number_regex = re.compile(r'^\d+$')
 
+re_starts_with_number = re.compile(r'^\d+[a-z]?')
+
 # Unicode characters for all language flags featured in the app.
 flags = {
     "zh": "🇨🇳",
@@ -63,13 +65,14 @@ def get_human_readable_language(language: str) -> str:
     """
     return flags.get(language, "") + language.upper()
 
+
 def rearrange_columns(df_questions: pd.DataFrame) -> pd.DataFrame:
     """
     Move the Filename and Category columns to the beginning of the dataframe for better readability.
     :param df_questions: a dataframe to display to the user in Panel 1.
     :return: the same dataframe with columns rearranged.
     """
-    cols = df_questions.columns
+    cols = list(df_questions.columns)
     cols.insert(0, cols.pop(cols.index('filename')))
     cols.insert(2, cols.pop(cols.index('question_category')))
     df_questions = df_questions.loc[:, cols]
@@ -83,6 +86,7 @@ def add_view_1_callbacks(dash_app):
     :param dash_app:
     :return:
     """
+
     @dash_app.callback(output=[Output("is_visited_before", "data")],
                        inputs=[Input("url", "href")]
                        )
@@ -138,7 +142,8 @@ def add_view_1_callbacks(dash_app):
         prevent_initial_call=True
     )
     def user_uploaded_files(file_table,
-                            selected_datasets, n_clicks, all_file_contents, file_names, file_date, parsed_documents, paste_data_title, paste_data):
+                            selected_datasets, n_clicks, all_file_contents, file_names, file_date, parsed_documents,
+                            paste_data_title, paste_data):
 
         print("file_names", file_names)
 
@@ -164,7 +169,10 @@ def add_view_1_callbacks(dash_app):
         if trigger_id == "btn_show_paste_data":
             if paste_data_title is None or paste_data_title == "":
                 paste_data_title = "Items"
-            parsed_documents[paste_data_title] = parse_pdf(paste_data)
+            if not paste_data_title.lower().endswith(".txt"):
+                paste_data_title += ".txt"
+            parsed_documents[paste_data_title] = paste_data
+            return [parsed_documents, selected_datasets, {"display": "none"}, {}]
         elif trigger_id == "file_table":
             # User deleted a row
             files_to_include = [r["File"] for r in file_table]
@@ -286,7 +294,39 @@ def add_view_1_callbacks(dash_app):
         dfs = []
 
         for file_name, pages in document_content.items():
-            if file_name.endswith("pdf"):
+            if file_name.endswith("txt"):
+                text = pages
+                language = detect(text)
+
+                df_questions = pd.DataFrame()
+
+                question_texts = text.split("\n")
+                question_texts = [q.strip() for q in question_texts if len(q.strip()) > 0]
+                question_numbers = [str(i + 1) for i in range(len(question_texts))]
+                question_options = [""] * len(question_texts)
+
+                for idx, q in enumerate(question_texts):
+                    m = re_starts_with_number.match(q)
+                    if m:
+                        question_numbers[idx] = m.group()
+                        question_texts[idx] = re.sub(r'^' + m.group() + r'[\.\s\)]+', "", q)
+                    else:
+                        question_texts[idx] = q
+
+                    colon = re.split(":|\t", question_texts[idx])
+                    if len(colon) > 1:
+                        question_options[idx] = colon[1]
+                        question_texts[idx] = colon[0]
+
+                df_questions = pd.DataFrame()
+                df_questions["question_no"] = question_numbers
+                df_questions["question"] = question_texts
+                df_questions["options"] = question_options
+
+                df_questions["filename"] = file_name
+                df_questions["language"] = get_human_readable_language(language)
+                df_questions.attrs["language"] = language
+            elif file_name.endswith("pdf"):
                 text = "\n".join(pages)
                 language = detect(text)
                 doc = process_text(text, language)
@@ -305,7 +345,7 @@ def add_view_1_callbacks(dash_app):
                 try:
                     language = detect(" ".join(df_questions["question"]))
                 except:
-                    print ("Error identifying language in Excel file")
+                    print("Error identifying language in Excel file")
                     traceback.print_exc()
                     traceback.print_stack()
 
@@ -339,12 +379,12 @@ def add_view_1_callbacks(dash_app):
 
         question_category_classifier.categorise_questions(df_questions)
 
-        # df_questions = rearrange_columns(df_questions)
+        df_questions = rearrange_columns(df_questions)
 
         serialised_columns, serialised_data = serialise_dataframe(df_questions, True, _)
 
         import json
-        print (json.dumps(serialised_columns, ensure_ascii=False, indent=4))
+        print(json.dumps(serialised_columns, ensure_ascii=False, indent=4))
 
         return [serialised_columns,
                 serialised_data, list(range(len(serialised_data)))]
