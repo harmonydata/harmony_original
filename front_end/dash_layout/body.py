@@ -337,7 +337,8 @@ rows = [
                         dcc.Dropdown(id="dropdown_table_orientation",
                                      options=[{"value": "h", "label": "horizontal"},
                                               {"value": "v", "label": "vertical"},
-                                              {"value": "m", "label": "matrix"}],
+                                              {"value": "m", "label": "matrix"},
+                                              {"value": "c", "label": "cluster"}],
                                      value="h",
                                      style={"max-width": "200px"}
                                      ),

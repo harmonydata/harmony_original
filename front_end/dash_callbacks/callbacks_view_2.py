@@ -9,6 +9,9 @@ from dash import callback_context
 from dash.dependencies import State
 from dash.exceptions import PreventUpdate
 from sklearn.manifold import TSNE
+from sklearn.cluster import KMeans
+from numpy import dot
+from numpy.linalg import norm
 
 from dash_callbacks.cytoscape_wrapper import get_cyto_stylesheet, get_node_options_with_cytoscape_colour_scheme, \
     make_cytoscape_graph
@@ -327,6 +330,36 @@ def add_view_2_callbacks(dash_app):
                     else:
                         v.append("")
                 df_harmonised_text[get_text_of_question(question_dfs, a)] = v
+        elif table_orientation == "c":
+            document_vector_values = np.asarray([x[1] for x in document_vectors])
+            document_vector_keys = [x[0] for x in document_vectors]
+            doc_to_doc_vector = {}
+            for k, v in zip(document_vector_keys, document_vector_values):
+                doc_to_doc_vector[k] = v
+
+            kmeans = KMeans(n_clusters=5, random_state=0).fit(document_vector_values)
+
+            doc_to_kmean = {}
+            for k, v in zip(document_vector_keys, kmeans.labels_):
+                doc_to_kmean[k]  =v
+
+            df_harmonised_text = pd.DataFrame()
+            axes = sorted([node for node, attr in G.nodes.items()])
+            df_harmonised_text["filename"] = [files[a[0]] for a in axes]
+            df_harmonised_text["question_no"] = [get_number_of_question(question_dfs, a) for a in axes]
+            df_harmonised_text["question"] = [get_text_of_question(question_dfs, a) for a in axes]
+            print ("axes", axes)
+            df_harmonised_text["cluster"] = [doc_to_kmean[str(a)] for a in axes]
+
+            cluster_distances = []
+            for a in axes:
+                cluster_id =doc_to_kmean[str(a)]
+                cluster_centre = kmeans.cluster_centers_[cluster_id]
+                this_vector = doc_to_doc_vector[str(a)]
+                cosine_similarity  = dot(this_vector, cluster_centre)/(norm(this_vector)*norm(cluster_centre))
+                cluster_distances.append(cosine_similarity)
+            df_harmonised_text["similarity to cluster centre"] = cluster_distances
+
 
         serialised_columns, serialised_data = serialise_dataframe(df_harmonised_text, False)
 
