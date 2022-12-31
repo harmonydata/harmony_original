@@ -35,7 +35,7 @@ class QuestionMatcherTransformerHuggingFaceNegationEfficient:
         transforms_neg = []
         normalised_forms = []
         for df in dfs:
-            language = df.attrs['language']
+            language = df.attrs.get('language', 'en')
 
             df["parsed"] = self.convert_texts_to_vector(df.question)
             negated = df.question.apply(lambda q: negate(q, language))

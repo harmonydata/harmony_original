@@ -135,14 +135,14 @@
     "my-slider",
     "marks",
     {
-      "0": "0% (show everything)",
+      "0": "0% (everything)",
       "0.2": "20%",
       "0.5": "50%",
       "0.8": "80% (close matches)",
       "1": "100% (exact matches)"
     },
     {
-      "0": "0% (mostrar tudo)",
+      "0": "0% (tudo)",
       "0.2": "20%",
       "0.5": "50%",
       "0.8": "80% (correspondências próximas)",
@@ -324,5 +324,13 @@
     "children",
     "Submit",
     "Enviar"
-  ]
+  ],
+  ["filter_by_topic",
+  "children",
+  "Filter by topic (free text)",
+  "Filtrar por tópico (texto livre)"],
+  ["btn_filter_topic",
+  "children",
+  "Filter",
+  "Filtrar"]
 ]

@@ -15,6 +15,7 @@ from dash.exceptions import PreventUpdate
 from langdetect import detect
 from tika import parser
 
+from dash_callbacks.callbacks_view_2 import question_matcher
 from dash_layout.body import file_to_text
 from utils.excel_processor import convert_jsonified_excel_to_questions_dataframe
 from utils.options_extractor import add_candidate_options
@@ -269,12 +270,16 @@ def add_view_1_callbacks(dash_app):
         inputs=[Input("document_content", "data"),
                 Input("select_language", "value"),
                 Input("add_row", "n_clicks"),
+                # Input("btn_filter_topic", "n_clicks"),
                 State("excerpt_table", "columns"),
                 State("excerpt_table", "data"),
+                # State("filter_topic", "value")
                 ],
         prevent_initial_call=True
     )
-    def display_questions(document_content, language, add_row, old_cols, old_data):
+    def display_questions(document_content, language, add_row,  # btn_filter_topic,
+                          old_cols, old_data,  # filter_topic
+                          ):
         # if True:  # for debugging
         #     df_questions = pd.read_excel("../notebooks/Data (20).xlsx")
         #     return [[{"name": i, "id": i, "hideable": True} for i in df_questions.columns],
@@ -381,6 +386,28 @@ def add_view_1_callbacks(dash_app):
 
         df_questions = rearrange_columns(df_questions)
 
+        #
+        # if filter_topic is not None and filter_topic != "":
+        #     try:
+        #         question_dfs = []
+        #         question_dfs.append(pd.DataFrame({"question":[filter_topic]}))
+        #         question_dfs.append(df_questions)
+        #         matches = question_matcher.match_questions(question_dfs, is_use_cosine_similarity=True)
+        #         similarities = []
+        #         for idx in range(len(df_questions)):
+        #             similarities.append(matches.get((0,0,1,idx)))
+        #         df_questions["similarity"] = similarities
+        #         df_questions["abs_similarity"] = df_questions["similarity"].apply(abs)
+        #         df_questions.sort_values("abs_similarity", inplace=True, ascending=False)
+        #
+        #         df_questions.drop(columns=["parsed", "parsed_neg", "normalised", "similarity", "abs_similarity"], inplace=True)
+        #     except:
+        #         print("Error filtering")
+        #         traceback.print_exc()
+        #         traceback.print_stack()
+
+        df_questions["id"] = [int(i) for i in range(len(df_questions))]
+
         serialised_columns, serialised_data = serialise_dataframe(df_questions, True, _)
 
         import json
@@ -395,14 +422,57 @@ def add_view_1_callbacks(dash_app):
         ]
         ,
         inputs=[Input("filter_questions", "value"),
+                Input("btn_filter_topic", "n_clicks"),
+                State("filter_topic", "value"),
+                State("filter_topic_threshold", "value"),
+                State("excerpt_table", "data"),
                 ],
         prevent_initial_call=True
     )
-    def update_filter_query(document_content):
-        if document_content is not None and document_content != "":
-            return ["{filename} = '" + document_content + "'"]
-        else:
-            return [""]
+    def update_filter_query(document_content, n_clicks, filter_topic, filter_topic_threshold, data
+                            ):
+        ctx = dash.callback_context
+        trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+        if trigger_id == "filter_questions":
+            if document_content is not None and document_content != "":
+                return ["{filename} = '" + document_content + "'"]
+
+        if trigger_id == "btn_filter_topic" and filter_topic is not None and filter_topic != "":
+            question_dfs = []
+            question_dfs.append(pd.DataFrame({"question": [filter_topic]}))
+            questions2 = pd.DataFrame()
+            questions2["question"] = [x["question"] for x in data]
+            questions2["id"] = [x["id"] for x in data]
+            question_dfs.append(questions2)
+            matches = question_matcher.match_questions(question_dfs, is_use_cosine_similarity=True)
+            ids = []
+            for idx in range(len(questions2)):
+                m = matches.get((0, 0, 1, idx))
+                if m and m > filter_topic_threshold:
+                    ids.append(questions2["id"].iloc[idx])
+
+            query = " or ".join(["{id} = " + str(id) for id in ids])
+
+            return [query]
+
+        return [""]
+
+    # @dash_app.callback(
+    #     output=[  # Output("paragraph_id", "children"),
+    #         Output("excerpt_table", "derived_virtual_indices"),
+    #     ]
+    #     ,
+    #     inputs=[
+    #             Input("btn_filter_topic", "n_clicks"),
+    #             State("excerpt_table", "data"),
+    #             State("filter_topic", "value")
+    #             ],
+    #     prevent_initial_call=True
+    # )
+    # def update_filter_query(n_clicks,data, filter_topic):
+    #
+    #     return [[0,1,2]]
 
     @dash_app.callback(
         output=[

@@ -435,3 +435,10 @@ button {
     background-color: #4B9072;
     color: white;
 }
+
+button {
+    text-align: center;
+    background-color: white;
+    color: black;
+    font-family: "PT Sans", verdana, arial, sans-serif;
+}

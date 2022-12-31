@@ -137,6 +137,23 @@ rows = [
                                 dcc.Dropdown(id="filter_questions", options=[], value=None, multi=False,
                                              style={'float': 'left', 'width': '50%', "margin-left": "20px"})],
                                 style={"display": "flex", "width": "100%"}),
+
+html.Div([
+                                html.P(id="filter_by_topic", className="control_label",
+                                       style={'float': 'left'}),
+                                dcc.Input(id="filter_topic",
+                                             style={'float': 'left', 'width': '30%', "margin-left": "20px", 'height': '40px'}),
+                                html.Span([
+                                dcc.Slider(0, 1, 0.1, value=0.3,
+                                           id='filter_topic_threshold',
+
+                                           ),
+                                    ], style={'float': 'left', 'width': '30%', "margin-left": "20px",}),
+                                html.Button(id="btn_filter_topic")
+
+],
+                                style={"display": "flex", "width": "100%"}),
+
                             html.Button(id="add_row"),
 
                             dcc.Loading([

@@ -23,3 +23,11 @@ var texts = """ + LANGUAGE_STRINGS + """;
 """, outputs,
                                  [Input("select_language", "value")],
                                  )
+
+
+    dash_app.clientside_callback("""function(x) {
+        return x;
+    }
+    """, Output("filter_topic_threshold", "marks"),
+                                     Input("my-slider", "marks"),
+                                     )
