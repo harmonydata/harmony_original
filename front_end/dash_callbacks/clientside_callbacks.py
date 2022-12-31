@@ -104,7 +104,6 @@ def add_clientside_callbacks(dash_app):
             prevent_initial_call=True,
         )
 
-
     dash_app.clientside_callback(
         """
         function(n) {
@@ -116,7 +115,7 @@ def add_clientside_callbacks(dash_app):
             }
         }
         """,
-        [Output("tabs", "value")],
+        Output("tabs", "value"),
         [Input("btn_go_to_2", "n_clicks"),
          Input("btn_go_to_3", "n_clicks")],
         prevent_initial_call=True,
