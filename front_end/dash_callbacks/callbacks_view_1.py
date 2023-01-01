@@ -274,11 +274,18 @@ def add_view_1_callbacks(dash_app):
                 State("excerpt_table", "columns"),
                 State("excerpt_table", "data"),
                 # State("filter_topic", "value")
+
+                Input('select-all-button', 'n_clicks'),
+                Input('deselect-all-button', 'n_clicks'),
+                State('excerpt_table', 'data'),
+                State('excerpt_table', 'derived_virtual_data'),
+                State('excerpt_table', 'derived_virtual_selected_rows')
                 ],
         prevent_initial_call=True
     )
     def display_questions(document_content, language, add_row,  # btn_filter_topic,
                           old_cols, old_data,  # filter_topic
+                          select_n_clicks, deselect_n_clicks, original_rows, filtered_rows, selected_rows
                           ):
         # if True:  # for debugging
         #     df_questions = pd.read_excel("../notebooks/Data (20).xlsx")
@@ -286,9 +293,24 @@ def add_view_1_callbacks(dash_app):
         #             df_questions.to_dict('records')]
         ctx = dash.callback_context
         trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+        print("trigger_id", trigger_id)
+
         if trigger_id == "add_row":
             old_data.append({c['id']: '' for c in old_cols})
             return [old_cols, old_data, list(range(len(old_data)))]
+
+        if trigger_id == 'select-all-button':
+            if filtered_rows is not None:
+                print("Selecting all rows..")
+                selected_ids = [row for row in filtered_rows]
+                return [old_cols, old_data, [i for i, row in enumerate(original_rows) if row in selected_ids]]
+            raise PreventUpdate
+        if trigger_id == 'deselect-all-button':
+            if filtered_rows is not None:
+                print("Deselecting all rows..")
+                return [old_cols, old_data, []]
+            raise PreventUpdate
 
         if language == "pt":
             from application import pt_lang
@@ -434,6 +456,8 @@ def add_view_1_callbacks(dash_app):
         ctx = dash.callback_context
         trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
+        print("filtering", trigger_id, filter_topic)
+
         if trigger_id == "filter_questions":
             if document_content is not None and document_content != "":
                 return ["{filename} = '" + document_content + "'"]
@@ -452,7 +476,10 @@ def add_view_1_callbacks(dash_app):
                 if m and m > filter_topic_threshold:
                     ids.append(questions2["id"].iloc[idx])
 
-            query = " or ".join(["{id} = " + str(id) for id in ids])
+            if len(ids) == 0:
+                query = "{id} = 'NOMATCH'"
+            else:
+                query = " or ".join(["{id} = " + str(id) for id in ids])
 
             return [query]
 
@@ -486,3 +513,28 @@ def add_view_1_callbacks(dash_app):
     def update_filter_options(data):
         filenames = sorted(set([r['filename'] for r in data]))
         return [[{"value": f, "label": f} for f in filenames]]
+    #
+    # @dash_app.callback(
+    #     output=[Output('excerpt_table', 'selected_rows')],
+    #     inputs=[
+    #         Input('select-all-button', 'n_clicks'),
+    #         Input('deselect-all-button', 'n_clicks'),
+    #         State('excerpt_table', 'data'),
+    #         State('excerpt_table', 'derived_virtual_data'),
+    #         State('excerpt_table', 'derived_virtual_selected_rows')
+    #     ]
+    # )
+    # def select_all(select_n_clicks, deselect_n_clicks, original_rows, filtered_rows, selected_rows):
+    #     ctx = dash.callback_context.triggered[0]
+    #     ctx_caller = ctx['prop_id']
+    #     if filtered_rows is not None:
+    #         if ctx_caller == 'select-all-button.n_clicks':
+    #             # logger.info("Selecting all rows..")
+    #             selected_ids = [row for row in filtered_rows]
+    #             return [[i for i, row in enumerate(original_rows) if row in selected_ids]]
+    #         if ctx_caller == 'deselect-all-button.n_clicks':
+    #             # logger.info("Deselecting all rows..")
+    #             return [[]]
+    #         raise PreventUpdate
+    #     else:
+    #         raise PreventUpdate

@@ -368,5 +368,13 @@
         "label": "arquivos juntos"
       }
     ]
-   ]
+   ],
+  ["select-all-button",
+  "children",
+  "Select all",
+  "Selecionar todos"],
+  ["deselect-all-button",
+  "children",
+  "Select none",
+  "Desmarcar todos"]
 ]

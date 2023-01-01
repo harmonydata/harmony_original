@@ -157,6 +157,8 @@ rows = [
                                 style={"display": "flex", "width": "100%"}),
 
                             html.Button(id="add_row"),
+                            html.Button(id="select-all-button"),
+                            html.Button(id="deselect-all-button"),
 
                             dcc.Loading([
                                 dash_table.DataTable(
@@ -167,7 +169,7 @@ rows = [
                                     sort_action='native',
                                     filter_action='native',
                                     export_format="xlsx",
-                                    row_selectable=True,
+                                    row_selectable="multi",
                                     filter_options={"case": "insensitive"},
                                     style_cell={"font-size": "10pt", "font-family": "PT Sans", "textAlign": "left",
                                                 "background-color": "white", 'whiteSpace': 'normal',
