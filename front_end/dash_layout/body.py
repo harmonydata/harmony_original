@@ -228,7 +228,7 @@ rows = [
                                         clearable=True,
                                         multi=True,
                                         style={'float': 'left', 'width': '80%', "margin-left": "20px"})],
-                                    style={"display": "flex", "width": "100%", "margin-top": "20px"}),
+                                    style={"display": "flex", "width": "100%", "margin-top": "20px", "visibility":"hidden"}),
 
                                 html.Div([
                                     html.P(id="filter_by_file", className="control_label",
@@ -239,7 +239,7 @@ rows = [
                                         clearable=True,
                                         multi=True,
                                         style={'float': 'left', 'width': '80%', "margin-left": "20px"})],
-                                    style={"display": "flex", "width": "100%"}),
+                                    style={"display": "flex", "width": "100%", "visibility":"hidden"}),
 
                             ],
                             className="box",
