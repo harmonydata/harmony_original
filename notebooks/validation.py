@@ -45,7 +45,7 @@ def validate(validation_data, match_function, MODEL_NAME):
                     for ii in range(len(dataset_data[i])):
                         for jj in range(len(dataset_data[j])):
                             tup = tuple(sorted([dataset_data[i][ii][2], dataset_data[j][jj][2]]))
-                            if tup not in pairs_already_seen:
+                            if tup not in pairs_already_seen and i != j:
                                 gold_standard[(i, ii, j, jj)] = int(
                                     (dataset_data[i][ii][1] == dataset_data[j][jj][1])
                                     or 
