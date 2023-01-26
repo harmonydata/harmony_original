@@ -21,7 +21,7 @@ This tool is written in Python using the Dash front end library and the Java lib
 
 Harmony compares questions from different instruments by converting them to a vector representation and calculating their similarity. You can read more at https://harmonydata.org/how-does-harmony-work/ 
 
-# Data schema
+# FAIR data schema
 
 We have defined a data schema in accordance with the [FAIR principles](https://harmonydata.org/fair-data/).
 
