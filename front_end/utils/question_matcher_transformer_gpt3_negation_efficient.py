@@ -26,7 +26,7 @@ def cosine_similarity(a, b):
     return dot(a, b) / (norm(a) * norm(b))
 
 
-with open(f"gpt3_embeddings_1.pkl", "rb") as f:
+with open(f"gpt3_embeddings_0.pkl", "rb") as f:
     embedding_dictionary = pkl.load(f)
 
 
@@ -85,13 +85,24 @@ class QuestionMatcherTransformerGpt3NegationEfficient:
             transforms_neg.append(df["vector_neg"].tolist())
             normalised_forms.append(df["normalised"].tolist())
 
+        import pickle as pkl
+        with open(f"gpt3_dfs.pkl", "wb") as f:
+            pkl.dump(dfs, f)
+
         similarity_function = cosine_similarity
 
         for i in range(len(transforms)):
             for j in range(i, len(transforms)):
-                pairwise_similarity = similarity_function(transforms[i], transforms[j])
-                pairwise_similarity_neg1 = similarity_function(transforms_neg[i], transforms[j])
-                pairwise_similarity_neg2 = similarity_function(transforms[i], transforms_neg[j])
+                pairwise_similarity = np.zeros((len(transforms[i]), len(transforms[j])))
+                pairwise_similarity_neg1 = np.zeros((len(transforms[i]), len(transforms[j])))
+                pairwise_similarity_neg2 = np.zeros((len(transforms[i]), len(transforms[j])))
+
+                for k in range(len(transforms[i])):
+                    for l in range(len(transforms[j])):
+                        pairwise_similarity[k][l] = similarity_function(transforms[i][k], transforms[j][l])
+                        pairwise_similarity_neg1[k][l] = similarity_function(transforms_neg[i][k], transforms[j][l])
+                        pairwise_similarity_neg2[k][l] = similarity_function(transforms[i][k], transforms_neg[j][l])
+
                 pairwise_similarity_neg_mean = np.mean([pairwise_similarity_neg1, pairwise_similarity_neg2], axis=0)
 
                 if is_disable_negation:
