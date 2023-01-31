@@ -21,6 +21,20 @@ This tool is written in Python using the Dash front end library and the Java lib
 
 Harmony compares questions from different instruments by converting them to a vector representation and calculating their similarity. You can read more at https://harmonydata.org/how-does-harmony-work/ 
 
+# FAIR data schema
+
+We have defined a data schema in accordance with the [FAIR principles](https://harmonydata.org/fair-data/).
+
+Questionnaires are represented within Harmony in a tabular format.
+
+The file name is the unique identifier of a questionnaire, e.g. `GAD-7 English.csv`.
+
+Files are tab-separated with the following columns:
+
+* Question No: Alphanumeric, the question ID from the original questionnaire.
+* Question: The text of the question
+* Options: Any options or Likert scale such as "very often", "more than usual", etc
+
 # Very quick guide to running the tool on your computer
 
 1. Install [Docker](https://docs.docker.com/get-docker/).
