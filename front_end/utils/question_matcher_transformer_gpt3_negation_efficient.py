@@ -1,5 +1,6 @@
 # stops = set(stopwords.words('english')).union(set(stopwords.words('portuguese')))
 # stops = {"she", "he"}
+import os
 import re
 
 import requests
@@ -25,9 +26,12 @@ embedding_dictionary = {}
 def cosine_similarity(a, b):
     return dot(a, b) / (norm(a) * norm(b))
 
-
-with open(f"gpt3_embeddings_0.pkl", "rb") as f:
-    embedding_dictionary = pkl.load(f)
+# Preload cache if it's found (to reduce API calls)
+if os.path.exists(f"gpt3_embeddings_0.pkl"):
+    with open(f"gpt3_embeddings_0.pkl", "rb") as f:
+        embedding_dictionary = pkl.load(f)
+else:
+    embedding_dictionary = {}
 
 
 def get_embedding(text: str, OPENAI_API_KEY: str):
@@ -84,10 +88,6 @@ class QuestionMatcherTransformerGpt3NegationEfficient:
             transforms.append(df["vector"].tolist())
             transforms_neg.append(df["vector_neg"].tolist())
             normalised_forms.append(df["normalised"].tolist())
-
-        import pickle as pkl
-        with open(f"gpt3_dfs.pkl", "wb") as f:
-            pkl.dump(dfs, f)
 
         similarity_function = cosine_similarity
 
