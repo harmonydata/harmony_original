@@ -3,13 +3,13 @@
     "introtext",
     "children",
     "Harmony is a tool designed for retrospective harmonisation of questionnaire data.\n\nIf you want to compare data from different surveys, such as GAD-7 and PHQ-9, Harmony can identify which questions match.\n\nDrag and drop your spreadsheets and PDFs of mental health questionnaires into the tool.\n\nThe AI will harmonise your data.\n\nYou can export the result to Excel or as an image, and share with colleagues.\n\nIf you have a query about Harmony we suggest you take a look at our [FAQs page](https://harmonydata.org/frequently-asked-questions/), or [contact us via the website](https://harmonydata.org/contact/).\n\n## Does Harmony save my data?\n\nHarmony does not save any data you upload. Please see our [privacy policy](https://harmonydata.org/privacy-policy/).",
-    "O Harmony é uma ferramenta desenvolvida para a harmonização de questionários e perguntas depesquisa.\n\nCaso você deseje comparar dados de diferentes questionários, como o GAD-7 e o PHQ-9, o Harmony é capaz de identificar quais perguntas correspondem entre si.\n\nArraste e solte suas planilhas e PDFs de questionários de saúde mental na ferramenta.\n\nA IA irá aproximar seus dados.\n\nVocê pode exportar o resultado em formato Excel ou como uma imagem e compartilhar com colegas.\n\nSe você tiver alguma dúvida sobre o Harmony, sugerimos que dê uma olhada em nossa [página de perguntas frequentes](https://harmonydata.org/frequently-asked-questions/) ou [escreva-nos uma mensagem](https://harmonydata.org/contact/).\n\n## O Harmony salva meus dados?\n\nO Harmony não salva nenhum dado que você carrega. Você também pode ler nossa [política de privacidade](https://harmonydata.org/privacy-policy/)."
+    "A Harmony é uma ferramenta concebida para a harmonização de dados de questionários de pesquisa.\n\nCaso queira comparar os dados de diferentes questionários, como o GAD-7 e o PHQ-9, a Harmony pode ajudar a identificar quais perguntas são correspondentes entre eles.\n\nArraste e solte suas planilhas e PDFs dos questionários de saúde mental na ferramenta.\n\nA IA harmoniza os dados.\n\nVocê pode exportar o resultado em Excel ou em imagem e compartilhar com seus colegas.\n\nSe você tiver alguma dúvida, sugerimos que dê uma olhada em nossa [página de perguntas frequentes](https://harmonydata.org/frequently-asked-questions/) ou [entre em contato conosco](https://harmonydata.org/contact/) pelo formulário do site.\n\n## O Harmony salva meus dados?\n\nO Harmony não salva nenhum dado que você envia. Confira a nossa [política de privacidade] (https://harmonydata.org/privacy-policy/) para saber mais."
   ],
   [
     "how_does_it_work",
     "children",
     "## How does Harmony work?\n\nHarmony uses a [transformer neural network](https://en.wikipedia.org/wiki/Transformer_%28machine_learning_model%29) to convert texts into a vector called a [document embedding](https://harmonydata.org/how-does-harmony-work/), and then calculates the cosine similarity between questionnaire items. Harmony has been [evaluated against existing harmonisation tools](https://harmonydata.org/measuring-the-performance-of-nlp-algorithms/).",
-    "## Como funciona o Harmony?\n\nO Harmony usa um [transformador](https://www.deeplearningbook.com.br/transformadores-o-estado-da-arte-em-processamento-de-linguagem-natural/) (uma rede neural) para converter textos em um vetor chamado [document embedding](https://harmonydata.org/how-does-harmony-work/) e, em seguida, calcula a semelhança de cosseno entre os itens do questionário. O Harmony foi [avaliado em relação às ferramentas de harmonização existentes](https://harmonydata.org/measuring-the-performance-of-nlp-algorithms/)."
+    "## Como o Harmony funciona?\n\nO Harmony usa um [transformador](https://www.deeplearningbook.com.br/transformadores-o-estado-da-arte-em-processamento-de-linguagem-natural/) (uma rede neural) para converter textos em um vetor chamado [document embedding](https://harmonydata.org/how-does-harmony-work/) e, em seguida, calcula a semelhança de cosseno entre os itens do questionário. O Harmony foi [avaliado em relação às ferramentas de harmonização existentes](https://harmonydata.org/measuring-the-performance-of-nlp-algorithms/)."
   ],
   [
     "choose_existing_questionnaires",
@@ -27,7 +27,7 @@
     "tab_upload_your_documents",
     "label",
     "Upload your documents",
-    "Carregue seus documentos"
+    "Envie os seus documentos"
   ],
   [
     "tab_paste_data",
@@ -57,13 +57,13 @@
     "select_files",
     "children",
     "Select Files from your Computer",
-    "Selecione arquivos do seu computador"
+    "Selecione os arquivos do seu computador"
   ],
   [
     "tip0",
     "children",
     "Harmony can read questionnaires in PDF or Excel format, although Excels may give better results.\n\nIf you're using Excel, each file should be an Excel spreadsheet with a question on each row. You can put multiple questionnaires in a single Excel in different sheets.\n\nIf you're uploading a PDF file or you are pasting plain text, for best results the questions should be formatted with question numbers, question text and a list of options on each line, e.g.\n\n```\n1. Feeling nervous: Rarely, Sometimes, Often, Always\n```\n\nThis version of the Harmony tool supports English and Portuguese documents.",
-    "O Harmony consegue ler questionários em formato PDF ou Excel (.xlsx), embora arquivos Excel possam trazer melhores resultados.\n\nSe você estiver usando o Excel, cada arquivo deve ser uma planilha de Excel com uma pergunta em cada linha. É possível incluir vários questionários em um único arquivo distribuindo-os em abas separadas.\n\nSe você estiver enviando um arquivo PDF ou colando texto, para obter melhores resultados, a formatação das perguntas deverá incluir o número da pergunta, o texto da pergunta e uma lista de opções na mesma linha, como no exemplo abaixo: \n\n```\n1. Sentir-se nervoso(a), ansioso(a) ou muito tenso(a): Raramente, Às vezes, Frequentemente, Sempre\n```\n\nEsta versão da ferramenta Harmony suporta documentos em inglês e português."
+    "O Harmony pode ler questionários em formato PDF ou Excel, contudo, os arquivos do Excel apresentam os melhores resultados.\n\nSe você usar o Excel, cada arquivo deve ser uma planilha de Excel com uma pergunta por linha. É possível incluir vários questionários em um único arquivo distribuindo-os em abas separadas.\n\nSe você usar um arquivo PDF ou estiver colando um texto sem formatação, para obter melhores resultados, as linhas das perguntas devem ser iniciadas pelo número da pergunta, seguido do texto da pergunta e, por fim, a lista de opções. Por exemplo: \n\n```\n1. Sentir-se nervoso(a), ansioso(a) ou muito tenso(a): Raramente, Às vezes, Frequentemente, Sempre\n```\n\nEsta versão da ferramenta suporta documentos em inglês e português."
   ],
   [
     "twtooltipbtnexit0",
@@ -81,7 +81,7 @@
     "these_are_questions",
     "children",
     "These are the questions that Harmony found in your documents.",
-    "Estas são as perguntas que o Harmony encontrou em seus documentos."
+    "Essas são as perguntas que o Harmony encontrou em seus documentos."
   ],
   [
     "click_to_filter",
@@ -93,7 +93,7 @@
     "upload_your_data",
     "label",
     "➊ Upload your items",
-    "➊ Carregue seus itens"
+    "➊ Enviar os itens"
   ],
   [
     "check_the_matches",
@@ -171,7 +171,7 @@
     "tooltip1_markdown",
     "children",
     "## Using the graph\n\nYou can use the scroll wheel on your mouse to zoom in or out. You can also click and drag the graph left or right to pan across it.\n\nThe percent scores show how close the AI thought two texts matched. Exact matches score 100%. Negative values mean that the texts match but have opposite meanings, e.g. \"I feel nervous\" vs \"I feel relaxed\".\n\n## How does Harmony work?\n\n*The technical details*\n\nThe AI converts the text of each question into a vector in 1600 dimensions using a neural network called GPT-2. This technique is called a *document embedding*.\n\nThe distance between any two questions is measured according to the cosine similarity metric between the two vectors. Two questions which are similar in meaning, even if worded differently or in different languages, will have a high degree of similarity between their vector representations. Questions which are very different tend to be far apart in the vector space.\n\nYou can read more about how Harmony works [in this blog post](https://harmonydata.org/how-does-harmony-work/).\n",
-    "## Uso do gráfico\n\nVocê pode usar o botão de rolagem (scroll) do seu mouse para aumentar ou diminuir o zoom. Você também pode explorar e mover o gráfico clicando e arrastando-o para a esquerda ou direita.\n\nOs resultados percentuais indicam o grau de correspondência entre os dois textos identificado pela inteligência artificial (IA). Correspondências exatas têm um percentual de 100%. Valores negativos significam que os textos se correspondem, mas têm sentidos opostos (por exemplo: “Eu me sinto tenso(a)” x “Eu me sinto relaxado(a)”.\n\n## Como o Harmony funciona?\n\n*Os detalhes técnicos*\n\nA IA converte o texto de cada pergunta em um vetor de 1600 dimensões usando uma rede neural chamada GPT-2. Essa técnica é chamada de *incorporação de documento* (ou “document embedding”, em inglês).\n\nA distância entre quaisquer duas perguntas é medida de acordo com a métrica de similaridade de cosseno entre os dois vetores. Duas perguntas com significados semelhantes, mesmo se formuladas de forma diferente ou em idiomas diferentes, terão um alto grau de similaridade entre suas representações vetoriais. Perguntas muito diferentes, por outro lado, tendem a estar distanciadas no espaço vetorial.\n\nVocê pode ler mais sobre como o Harmony funciona [nesta postagem do blog](https://harmonydata.org/how-does-harmony-work/).\n"
+    "## Usando o gráfico\n\nVocê pode usar a roda de rolagem (scroll) do mouse para aumentar ou diminuir o zoom. Você também pode clicar e arrastar o gráfico para a esquerda ou para a direita para explorá-lo.\n\nOs resultados percentuais indicam o grau de correspondência identificado pela inteligência artificial (IA) entre dois textos. Correspondências exatas têm um percentual de 100%. Valores negativos significam que os textos se correspondem, mas têm sentidos opostos (por exemplo: “Eu me sinto tenso(a)” x “Eu me sinto relaxado(a)”.\n\n## Como o Harmony funciona?\n\n*Detalhes técnicos*\n\nA IA converte o texto de cada pergunta em um vetor de 1.600 dimensões usando uma rede neural chamada GPT-2. Essa técnica é chamada de *incorporação de documento* (ou “document embedding”, em inglês).\n\nA distância entre quaisquer duas perguntas é medida de acordo com a métrica de similaridade de cosseno entre os dois vetores. Duas perguntas com significados semelhantes, mesmo se formuladas de forma diferente ou em idiomas diferentes, terão um alto grau de similaridade entre suas representações vetoriais. Perguntas muito diferentes, por outro lado, tendem a apresentar maior distância no espaço vetorial.\n\nVocê pode ler mais sobre como o Harmony funciona [nesta postagem do blog](https://harmonydata.org/how-does-harmony-work/).\n"
   ],
   [
     "twtooltipbtnexit",
@@ -201,13 +201,13 @@
     "please_upload_message",
     "children",
     "Please upload some questionnaires under 'Upload your data'.",
-    "Por favor, acesse “Carregue seus dados” para enviar alguns questionários."
+    "Por favor, envie alguns questionários na aba 'Enviar os itens'."
   ],
   [
     "please_wait_message",
     "children",
     "Please wait. The graph is being calculated.",
-    "Por favor, espere. O Harmony está calculando o gráfico."
+    "Por favor, aguarde. O gráfico está sendo gerado."
   ],
   [
     "filter_by_cat",
@@ -275,7 +275,7 @@
     "your_matches",
     "children",
     "Your matches",
-    "As suas correspondências"
+    "Suas correspondências"
   ],
   [
     "zoompan",
@@ -292,11 +292,11 @@
     ],
     [
       {
-        "label": "Ativar o zoom da roda do mouse",
+        "label": "Ativar o zoom com roda do mouse",
         "value": "zoom"
       },
       {
-        "label": "Habilite a panorâmica arrastando o mouse",
+        "label": "Ativar movimento panorâmico ao arrasta o mouse",
         "value": "pan"
       }
     ]
@@ -305,19 +305,19 @@
     "go_to_2",
     "children",
     "Next: check your matches! ↝",
-    "Agora: verifique suas correspondências! ↝"
+    "Próximo: confira as correspondências! ↝"
   ],
   [
     "go_to_3",
     "children",
     "Next: export your data! ↝",
-    "Agora: exporte seus dados! ↝"
+    "Próximo: exporte os dados! ↝"
   ],
   [
     "feedback",
     "children",
     "Provide feedback to the developers",
-    "Forneça feedback aos desenvolvedores"
+    "Dê sua opinião aos desenvolvedores"
   ],
   [
     "btn_show_paste_data",
@@ -325,27 +325,31 @@
     "Submit",
     "Enviar"
   ],
-  ["filter_by_topic",
-  "children",
-  "Filter by topic (free text)",
-  "Filtrar por tópico (texto livre)"],
-  ["btn_filter_topic",
-  "children",
-  "Filter",
-  "Filtrar"],
+  [
+    "filter_by_topic",
+    "children",
+    "Filter by topic (free text)",
+    "Filtrar por assunto (texto livre)"
+  ],
+  [
+    "btn_filter_topic",
+    "children",
+    "Filter",
+    "Filtrar"
+  ],
   [
     "filter_by_file",
     "children",
     "Filter questions by file:",
     "Filtrar perguntas por arquivo:"
   ],
-   [
+  [
     "display_style",
     "children",
     "Display style:",
     "Estilo do gráfico:"
   ],
-   [
+  [
     "dropdown_display_style",
     "options",
     [
@@ -368,13 +372,17 @@
         "label": "arquivos juntos"
       }
     ]
-   ],
-  ["select-all-button",
-  "children",
-  "Select all",
-  "Selecionar todos"],
-  ["deselect-all-button",
-  "children",
-  "Select none",
-  "Desmarcar todos"]
+  ],
+  [
+    "select-all-button",
+    "children",
+    "Select all",
+    "Selecionar todos"
+  ],
+  [
+    "deselect-all-button",
+    "children",
+    "Select none",
+    "Desmarcar todos"
+  ]
 ]
