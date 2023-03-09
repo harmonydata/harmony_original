@@ -33,7 +33,7 @@ def validate(validation_data, match_function, MODEL_NAME):
                     print ("Found Portuguese dataset", dataset)
                 question_dfs.append(df)
 
-            print (f"\tProcessing {len(question_dfs)} instruments of average length {int(np.round(np.mean([len(d) for d in question_dfs])))} questions each")
+            print (f"\tProcessing {len(question_dfs)} instruments of average length {int(np.round(np.mean([len(d) for d in question_dfs])))} questions each (range: {int(np.round(np.min([len(d) for d in question_dfs])))} to {int(np.round(np.max([len(d) for d in question_dfs])))})")
             matches = match_function(question_dfs)
 
             print (f"\tCalculated {len(matches)} match scores")
