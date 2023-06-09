@@ -4,7 +4,7 @@
 ![my badge](https://badgen.net/badge/Status/In%20Development/orange)
 <!-- badges: end -->
 
-*A second version of Harmony is in development as an API.*
+*A second version of Harmony is in development as an API at https://github.com/harmonydata/harmony*
 
 Harmony is a data harmonisation project that uses Natural Language Processing to help researchers make better use of existing data from different studies by supporting them with the harmonisation of various measures and items used in different studies. Harmony is a collaboration project between the University of Ulster, University College London, the Universidade Federal de Santa Maria in Brazil, and Fast Data Science Ltd.
 
