@@ -1,4 +1,4 @@
-# Harmony version 1.0
+# Harmony version 0.1.0
 
 <!-- badges: start -->
 ![my badge](https://badgen.net/badge/Status/In%20Development/orange)
